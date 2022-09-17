@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\TetrisBotAttack.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\TetrisBotAttack.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\TetrisBotAttack.csproj",
+        "projectName": "TetrisBotAttack",
+        "projectPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\TetrisBotAttack.csproj",
+        "packagesPath": "C:\\Users\\burnt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\.mono\\temp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\burnt\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
