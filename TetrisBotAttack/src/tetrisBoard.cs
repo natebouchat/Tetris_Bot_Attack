@@ -3,10 +3,9 @@ using System;
 
 public class tetrisBoard : Node2D
 {   private float timer;
-    private int[,] board;
+    private Sprite[,] board;
     private BlockControl block;
     private Vector2 _screenSize;
-    private bool downActionBuffer;
     
     [Export]
     public int tickTime = 10;
@@ -17,29 +16,29 @@ public class tetrisBoard : Node2D
     {
         _screenSize = GetViewport().Size;
 
-        board = new int[10, 20];
+        board = new Sprite[10, 20];
         for(int i = 0; i < 20; i++) {
             for(int j = 0; j < 10; j++) {
-                board[j, i] = 0;
+                board[j, i] = null;
            }
         }
 
         block = GetChild<BlockControl>(0);
         timer = 0;
-        downActionBuffer = false;
     }
 
     public override void _Process(float delta)
     {
-        playerInput();
+        if(board[((int)block.getXPos()/40), ((int)block.getYPos()/40)] == null) {
+            playerInput();
 
-        timer += 1;
-        if (timer >= tickTime) {
-            timer -= tickTime;
-            block.blockMoveDown();
+            timer += 1;
+            if (timer >= tickTime) {
+                timer -= tickTime;
+                block.blockMoveDown();
+            }
+            hasCollidedDown(block.getXPos(), block.getYPos());
         }
-
-        hasCollidedDown(block.getXPos(), block.getYPos());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +57,6 @@ public class tetrisBoard : Node2D
             }
         }
         if (Input.IsActionPressed("ui_down")) {
-            downActionBuffer = true;
             if(hasCollidedDown(block.getXPos(), block.getYPos()) == false) {
                 if(timer%3 == 0) {
                     block.blockMoveDown();
@@ -68,15 +66,12 @@ public class tetrisBoard : Node2D
     }
 
     private void createInstance(float lockedPosX, float lockedPosY) {
-        if(downActionBuffer == false) {
-            board[((int)lockedPosX/40), ((int)lockedPosY/40)] = 1;
-
-            var DownedBlockInstance = (Sprite)DownedBlocks.Instance();
+            Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
             AddChild(DownedBlockInstance);
             DownedBlockInstance.Position = new Vector2(lockedPosX - 180, lockedPosY - 380);
+            board[((int)lockedPosX/40), ((int)lockedPosY/40)] = DownedBlockInstance;
         
             block.resetBlock();
-        }
     }
 
     private bool hasCollidedDown(float xPos, float yPos) {
@@ -88,16 +83,15 @@ public class tetrisBoard : Node2D
             createInstance(block.getXPos(), block.getYPos());
             return true;
         }
-        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)] == 1) {
+        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)] != null) {
             createInstance(block.getXPos(), block.getYPos()-40);
             return true;    
         }
-        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)+1] == 1) {
+        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)+1] != null) {
             createInstance(block.getXPos(), block.getYPos());
             return true;    
         }
         else {
-            downActionBuffer = false;
             return false;
         }
     }
@@ -106,13 +100,13 @@ public class tetrisBoard : Node2D
         if(side == 'r' && block.getXPos() == 360) {
             return true;
         }
-        else if(side == 'r' && board[((int)block.getXPos()/40)+1, ((int)block.getYPos()/40)] == 1) {
+        else if(side == 'r' && board[((int)block.getXPos()/40)+1, ((int)block.getYPos()/40)] != null) {
             return true;
         }
         else if(side == 'l' && block.getXPos() == 0) {
             return true;
         }
-        else if (side == 'l' && board[((int)block.getXPos()/40)-1, ((int)block.getYPos()/40)] == 1) {
+        else if (side == 'l' && board[((int)block.getXPos()/40)-1, ((int)block.getYPos()/40)] != null) {
             return true;
         }
         else {
