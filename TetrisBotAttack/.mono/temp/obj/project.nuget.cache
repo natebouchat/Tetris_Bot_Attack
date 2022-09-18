@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AgFeTaTy+6eO4/Fo6F8tFm9zEDgLjljr6LYTn5Mmkgy+feN/Gwv4PMQeK8Neh/mM0wyQFBobJpefU2Ye6hJ2Eg==",
+  "dgSpecHash": "8Be4D0xzpgujk3WCu8DmZPcGvnbTzGI2SF+p0zcJsC3QNanUSReJjiNKQeNctcsBA1DNjyUDT70E3ZVA53wJtg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttack\\TetrisBotAttack.csproj",
+  "projectFilePath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\burnt\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
     "C:\\Users\\burnt\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"

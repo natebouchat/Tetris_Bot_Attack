@@ -5,13 +5,13 @@ public class BlockControl : Sprite
 {
     
     Vector2 Velocity;
-    bool stop;
+    Vector2 startPosition;
 
     public BlockControl()
     {
         Velocity = new Vector2(0, 40);
-        Position = new Vector2(-20, -340);
-        stop = false;
+        startPosition = new Vector2(-20, -340);
+        Position = startPosition;
     }
 
     public void blockMove(float timer)
@@ -27,12 +27,8 @@ public class BlockControl : Sprite
         return this.Position.x + 180;
     }
 
-    public void setStopToTrue() {
-        stop = true;
-    }
-
-    public bool getStop() {
-        return stop;
+    public void resetBlock() {
+        this.Position = startPosition;
     }
 
 }
