@@ -6,6 +6,8 @@ public class tetrisBoard : Node2D
     private Sprite[,] board;
     private BlockControl block;
     private Vector2 _screenSize;
+    private bool collisionDetectedY;
+    private bool collisionDetectedX;
     
     [Export]
     public int tickTime = 10;
@@ -29,7 +31,8 @@ public class tetrisBoard : Node2D
 
     public override void _Process(float delta)
     {
-        if(board[((int)block.getXPos()/40), ((int)block.getYPos()/40)] == null) {
+        //[4,1] == startingPosition
+        if(board[4, 1] == null) {
             playerInput();
 
             timer += 1;
@@ -37,7 +40,7 @@ public class tetrisBoard : Node2D
                 timer -= tickTime;
                 block.blockMoveDown();
             }
-            hasCollidedDown(block.getXPos(), block.getYPos());
+            hasCollidedDown(block.getBlockPos());
         }
     }
 
@@ -57,7 +60,7 @@ public class tetrisBoard : Node2D
             }
         }
         if (Input.IsActionPressed("ui_down")) {
-            if(hasCollidedDown(block.getXPos(), block.getYPos()) == false) {
+            if(hasCollidedDown(block.getBlockPos()) == false) {
                 if(timer%3 == 0) {
                     block.blockMoveDown();
                 }
@@ -65,52 +68,63 @@ public class tetrisBoard : Node2D
         }
     }
 
-    private void createInstance(float lockedPosX, float lockedPosY) {
-            Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
-            AddChild(DownedBlockInstance);
-            DownedBlockInstance.Position = new Vector2(lockedPosX - 180, lockedPosY - 380);
-            board[((int)lockedPosX/40), ((int)lockedPosY/40)] = DownedBlockInstance;
+    private void createInstance(float[,] blockPos, int adjustment) {
+            for(int i = 0; i < 4; i++) {
+                Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
+                AddChild(DownedBlockInstance);
+                DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380);
+                board[((int)blockPos[0,i]/40), ((int)blockPos[1,i]/40)] = DownedBlockInstance;
+            }
         
             block.resetBlock();
     }
 
-    private bool hasCollidedDown(float xPos, float yPos) {
-        if(yPos > 760) {
-            createInstance(block.getXPos(), 760);
-            return false;
-        } 
-        else if(yPos == 760) {
-            createInstance(block.getXPos(), block.getYPos());
-            return true;
+    private bool hasCollidedDown(float[,] blockPos) {
+        collisionDetectedY = false;
+        for(int i = 0; i < 4; i++) { 
+            if(blockPos[1, i] > 760) {
+                createInstance(blockPos, 40);
+                break;
+            } 
+            else if(blockPos[1, i] == 760) {
+                createInstance(blockPos, 0);
+                collisionDetectedY = true;
+                break;
+            }
+            else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] != null) {
+                createInstance(blockPos, -40);
+                collisionDetectedY = true;
+                break; 
+            }
+            else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)+1] != null) {
+                createInstance(blockPos, 0);
+                collisionDetectedY = true;
+                break;
+            }
+            else {
+            }
         }
-        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)] != null) {
-            createInstance(block.getXPos(), block.getYPos()-40);
-            return true;    
-        }
-        else if (board[((int)block.getXPos()/40), ((int)block.getYPos()/40)+1] != null) {
-            createInstance(block.getXPos(), block.getYPos());
-            return true;    
-        }
-        else {
-            return false;
-        }
+        return collisionDetectedY;
     }
 
     private bool hascollidedSide(char side) {
-        if(side == 'r' && block.getXPos() == 360) {
-            return true;
+        collisionDetectedX = false;
+        for(int i = 0; i < 4; i++) {
+            if(side == 'r' && block.getBlockPos()[0,i] == 360) {
+                collisionDetectedX = true;
+            }
+            else if(side == 'r' && board[((int)block.getBlockPos()[0,i]/40)+1, ((int)block.getBlockPos()[1,i]/40)] != null) {
+                collisionDetectedX = true;
+            }
+            else if(side == 'l' && block.getBlockPos()[0,i] == 0) {
+                collisionDetectedX = true;
+            }
+            else if (side == 'l' && board[((int)block.getBlockPos()[0,i]/40)-1, ((int)block.getBlockPos()[1,i]/40)] != null) {
+                collisionDetectedX = true;
+            }
+            else {
+            }
         }
-        else if(side == 'r' && board[((int)block.getXPos()/40)+1, ((int)block.getYPos()/40)] != null) {
-            return true;
-        }
-        else if(side == 'l' && block.getXPos() == 0) {
-            return true;
-        }
-        else if (side == 'l' && board[((int)block.getXPos()/40)-1, ((int)block.getYPos()/40)] != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return collisionDetectedX;
     }
 }
