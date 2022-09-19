@@ -49,24 +49,38 @@ public class tetrisBoard : Node2D
     private void playerInput() {
         if (Input.IsActionJustPressed("ui_right"))
         {
-            if(hascollidedSide('r') == false) {
+            if(hasCollidedSide('r') == false) {
                 block.blockMoveRight();
             }
         }
         if (Input.IsActionJustPressed("ui_left"))
         {
-            if(hascollidedSide('l') == false) {
+            if(hasCollidedSide('l') == false) {
                 block.blockMoveLeft();
             }
         }
-        if (Input.IsActionJustPressed("ui_rotateLeft")) {
-            block.rotateBlocks(true);
+        if (Input.IsActionJustPressed("rotateLeft")) {
+            block.rotateBlocks('l');
+            if(hasCollidedRotate(block.getBlockPos()) == true) {
+                block.rotateBlocks('r');
+            }
+        }
+        if (Input.IsActionJustPressed("rotateRight")) {
+            block.rotateBlocks('r');
+            if(hasCollidedRotate(block.getBlockPos()) == true) {
+                block.rotateBlocks('l');
+            }
         }
         if (Input.IsActionPressed("ui_down")) {
             if(hasCollidedDown(block.getBlockPos()) == false) {
                 if(timer%3 == 0) {
                     block.blockMoveDown();
                 }
+            }
+        }
+        if (Input.IsActionJustPressed("ui_up")) {
+            while(hasCollidedDown(block.getBlockPos()) == false) {
+                block.blockMoveDown();
             }
         }
     }
@@ -87,21 +101,21 @@ public class tetrisBoard : Node2D
         collisionDetectedY = false;
         for(int i = 0; i < 4; i++) { 
             if(blockPos[1, i] > 760) {
-                createInstance(blockPos, (blockPos[1, i] - 760)*-1);
+                createInstance(blockPos, (blockPos[1, i] - 760)*-1);             
                 break;
             } 
             else if(blockPos[1, i] == 760) {
-                createInstance(blockPos, 0);
+                createInstance(blockPos, 0);             
                 collisionDetectedY = true;
                 break;
             }
             else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] != null) {
-                createInstance(blockPos, -40);
+                createInstance(blockPos, -40);               
                 collisionDetectedY = true;
                 break; 
             }
             else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)+1] != null) {
-                createInstance(blockPos, 0);
+                createInstance(blockPos, 0);       
                 collisionDetectedY = true;
                 break;
             }
@@ -111,7 +125,7 @@ public class tetrisBoard : Node2D
         return collisionDetectedY;
     }
 
-    private bool hascollidedSide(char side) {
+    private bool hasCollidedSide(char side) {
         collisionDetectedX = false;
         for(int i = 0; i < 4; i++) {
             if(side == 'r' && block.getBlockPos()[0,i] == 360) {
@@ -130,5 +144,17 @@ public class tetrisBoard : Node2D
             }
         }
         return collisionDetectedX;
+    }
+
+    private bool hasCollidedRotate(float[,] blockPos) {
+        for(int i = 0; i < 4; i++) {
+            if(blockPos[0, i] < 0 || blockPos[0, i] > 360 || blockPos[1, i] < 0 || blockPos[1, i] > 760) {
+                return true;
+            }
+            else if(board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

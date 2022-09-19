@@ -7,6 +7,7 @@
 [ext_resource path="res://src/DownedBlocks.tscn" type="PackedScene" id=5]
 
 [node name="tet" type="Node2D"]
+position = Vector2( -1, 0 )
 
 [node name="10X20" type="Sprite" parent="."]
 position = Vector2( 500, 300 )

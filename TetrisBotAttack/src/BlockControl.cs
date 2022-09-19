@@ -78,14 +78,16 @@ public class BlockControl : Sprite
         this.Position = startPosition;
     }
 
-    public bool rotateBlocks(bool justChecking) {
+    public bool rotateBlocks(char direction) {
         for(int i = 0; i < 3; i++) {
+            sign = 1;
             if(childBlocks[i].Position.x < 0 || childBlocks[i].Position.y < 0) {
-                sign = -1;
+                sign = sign*-1;
             }
-            else {
-                sign = 1;
+            if(direction == 'r') {
+                sign = sign*-1;
             }
+
 
             if(childBlocks[i].Position.x == 0 && (Math.Abs(childBlocks[i].Position.y) == 40 || Math.Abs(childBlocks[i].Position.y) == 80)) {
                 if(Math.Abs(childBlocks[i].Position.y) == 80) {
