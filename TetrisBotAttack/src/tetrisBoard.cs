@@ -59,6 +59,9 @@ public class tetrisBoard : Node2D
                 block.blockMoveLeft();
             }
         }
+        if (Input.IsActionJustPressed("ui_rotateLeft")) {
+            block.rotateBlocks(true);
+        }
         if (Input.IsActionPressed("ui_down")) {
             if(hasCollidedDown(block.getBlockPos()) == false) {
                 if(timer%3 == 0) {
@@ -68,22 +71,23 @@ public class tetrisBoard : Node2D
         }
     }
 
-    private void createInstance(float[,] blockPos, int adjustment) {
+    private void createInstance(float[,] blockPos, float adjustment) {
             for(int i = 0; i < 4; i++) {
-                Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
-                AddChild(DownedBlockInstance);
-                DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380);
-                board[((int)blockPos[0,i]/40), ((int)blockPos[1,i]/40)] = DownedBlockInstance;
+                if((blockPos[1,i]+adjustment)/40 > 0 && (blockPos[1,i]+adjustment)/40 < 40) {
+                    Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
+                    AddChild(DownedBlockInstance);
+                    DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380 + adjustment);
+                    board[((int)blockPos[0,i]/40), ((int)(blockPos[1,i]+adjustment)/40)] = DownedBlockInstance;
+                }
             }
         
             block.resetBlock();
     }
-
     private bool hasCollidedDown(float[,] blockPos) {
         collisionDetectedY = false;
         for(int i = 0; i < 4; i++) { 
             if(blockPos[1, i] > 760) {
-                createInstance(blockPos, 40);
+                createInstance(blockPos, (blockPos[1, i] - 760)*-1);
                 break;
             } 
             else if(blockPos[1, i] == 760) {
