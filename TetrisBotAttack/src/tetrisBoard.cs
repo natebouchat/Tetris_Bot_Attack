@@ -3,13 +3,11 @@ using System;
 
 public class tetrisBoard : Node2D
 {   private float timer;
-    private int clearDelay;
+    private int delay;
     private Sprite[,] board;
     private BlockControl block;
     private Vector2 _screenSize;
     private Vector2 blocksDown1;
-    private bool collisionDetectedY;
-    private bool collisionDetectedX;
     
     [Export]
     public int tickTime = 10;
@@ -30,7 +28,7 @@ public class tetrisBoard : Node2D
         block = GetChild<BlockControl>(0);
         blocksDown1 = new Vector2(0, -40);
         timer = 0;
-        clearDelay = 0;
+        delay = 0;
     }
 
     public override void _Process(float delta)
@@ -40,13 +38,16 @@ public class tetrisBoard : Node2D
             playerInput();
 
             timer += 1;
-            if (timer >= tickTime + clearDelay) {
-                timer = timer - (tickTime + clearDelay);
-                clearDelay = 0;
+            if (timer >= tickTime + delay) {
+                timer = timer - (tickTime + delay);
+                delay = 0;
                 pushDownOverEmpty();
                 block.blockMoveDown();
             }
-            hasCollidedDown(block.getBlockPos());
+            if(hasCollided(block.getBlockPos()) == true) {
+                block.blockMoveUp();
+                createInstance(block.getBlockPos());
+            }
             completedLine();
         }
     }
@@ -80,61 +81,37 @@ public class tetrisBoard : Node2D
                 block.rotateBlocks('l');
             }
         }
-        if (Input.IsActionPressed("ui_down")) {
-            if(hasCollidedDown(block.getBlockPos()) == false) {
-                if(timer%3 == 0) {
-                    block.blockMoveDown();
+        if (Input.IsActionPressed("ui_down")) {   
+            if(timer%3 == 0) {
+                block.blockMoveDown();
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveUp();
+                    createInstance(block.getBlockPos());
                 }
             }
         }
         if (Input.IsActionJustPressed("ui_up")) {
-            while(hasCollidedDown(block.getBlockPos()) == false) {
+            while(hasCollided(block.getBlockPos()) == false) {
                 block.blockMoveDown();
             }
+            block.blockMoveUp();
+            createInstance(block.getBlockPos());
         }
     }
 
-    private void createInstance(float[,] blockPos, float adjustment) {
+    private void createInstance(float[,] blockPos) {
         for(int i = 0; i < 4; i++) {
-            if((blockPos[1,i]+adjustment)/40 > 0 && (blockPos[1,i]+adjustment)/40 < 40) {
+            if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
                 if(board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] == null) {
                     Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
                     AddChild(DownedBlockInstance);
-                    DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380 + adjustment);
-                    board[((int)blockPos[0,i]/40), ((int)(blockPos[1,i]+adjustment)/40)] = DownedBlockInstance;
+                    DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380);
+                    board[((int)blockPos[0,i]/40), ((int)(blockPos[1,i])/40)] = DownedBlockInstance;
                 }
             }
         }
 
         block.resetBlock();
-    }
-
-    private bool hasCollidedDown(float[,] blockPos) {
-        collisionDetectedY = false;
-        for(int i = 0; i < 4; i++) { 
-            if(blockPos[1, i] > 760) {
-                createInstance(blockPos, (blockPos[1, i] - 760)*-1);             
-                break;
-            } 
-            else if(blockPos[1, i] == 760) {
-                createInstance(blockPos, 0);             
-                collisionDetectedY = true;
-                break;
-            }
-            else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] != null) {
-                createInstance(blockPos, -40);               
-                collisionDetectedY = true;
-                break; 
-            }
-            else if (board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)+1] != null) {
-                createInstance(blockPos, 0);       
-                collisionDetectedY = true;
-                break;
-            }
-            else {
-            }
-        }
-        return collisionDetectedY;
     }
 
     private bool hasCollided(float[,] blockPos) {
@@ -159,6 +136,7 @@ public class tetrisBoard : Node2D
                     for(int k = 0; k < 10; k++) {
                         RemoveChild(board[k, i]);
                         board[k, i] = null;
+                        delay = 5;
                     }
                 }
             }

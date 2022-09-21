@@ -55,6 +55,10 @@ public class BlockControl : Sprite
     {
         this.Position += down1;
     }
+    
+    public void blockMoveUp() {
+        this.Position -= down1;
+    }
 
     public void blockMoveRight() {
             this.Position += right1;

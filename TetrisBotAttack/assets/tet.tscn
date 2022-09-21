@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/block.jpg" type="Texture" id=2]
 [ext_resource path="res://src/BlockControl.cs" type="Script" id=3]
 [ext_resource path="res://src/tetrisBoard.cs" type="Script" id=4]
-[ext_resource path="res://src/DownedBlocks.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/DownedBlocks.tscn" type="PackedScene" id=5]
 
 [node name="tet" type="Node2D"]
 position = Vector2( -1, 0 )
