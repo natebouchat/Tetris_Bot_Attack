@@ -10,10 +10,9 @@ public class BlockControl : Sprite
     private Vector2 startPosition;
     private float[,] blockPos;
     private Sprite[] childBlocks;
-    private Sprite block2;
-    private Sprite block3;
-    private Sprite block4;
     private int sign;
+    private Color color;
+
 
     [Export]
     public PackedScene ChildBlock;
@@ -34,17 +33,13 @@ public class BlockControl : Sprite
     }
 
     public void intializeChildrenInstances() {
-        block2 = (Sprite)ChildBlock.Instance();
-        block3 = (Sprite)ChildBlock.Instance();
-        block4 = (Sprite)ChildBlock.Instance();
+        childBlocks[0] = (Sprite)ChildBlock.Instance();
+        childBlocks[1] = (Sprite)ChildBlock.Instance();
+        childBlocks[2] = (Sprite)ChildBlock.Instance();
         
-        AddChild(block2);
-        AddChild(block3);
-        AddChild(block4);
-
-        childBlocks[0] = block2;
-        childBlocks[1] = block3;
-        childBlocks[2] = block4;
+        AddChild(childBlocks[0]);
+        AddChild(childBlocks[1]);
+        AddChild(childBlocks[2]);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -146,47 +141,54 @@ public class BlockControl : Sprite
         else {
             setShapeLong();
         }
-        
+
+        this.Modulate = color;
     }
 
     private void setShapeT() {
         childBlocks[0].Position = right1;
         childBlocks[1].Position = -right1;
         childBlocks[2].Position = -down1;
+        color = new Color(0, 0, 0.9f);
     }
     private void setShapeS() {
         childBlocks[0].Position = right1 - down1;
         childBlocks[1].Position = -right1 ;
         childBlocks[2].Position = -down1;
+        color = new Color(0, 0.9f, 0);
     }
     private void setShapeZ() {
         childBlocks[0].Position = -right1 - down1;
         childBlocks[1].Position = right1;
         childBlocks[2].Position = -down1;
+        color = new Color(0.9f, 0, 0);
     }
     private void setShapeL() {
         childBlocks[0].Position = right1;
         childBlocks[1].Position = -right1;
         childBlocks[2].Position = right1 - down1;
-
+        color = new Color(1, 0.4f, 0);
     }
     private void setShapeWaluigi() {
         childBlocks[0].Position = right1;
         childBlocks[1].Position = -right1;
         childBlocks[2].Position = -right1 - down1;
-
+        color = new Color(0.6f, 0, 1);
     }
     private void setShapeSquare() {
         childBlocks[0].Position = right1;
         childBlocks[1].Position = right1 - down1;;
         childBlocks[2].Position = -down1;
+        color = new Color(0.9f, 0.9f, 0);
     }
     private void setShapeLong() {
         childBlocks[0].Position = -right1;
         childBlocks[1].Position = right1;
         childBlocks[2].Position = (right1 * 2);
+        color = new Color(0, 0.9f, 1);
     }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public float[,] getBlockPos() {
         blockPos[0,0] = this.Position.x + 180;
@@ -196,6 +198,10 @@ public class BlockControl : Sprite
             blockPos[1,j] = childBlocks[j-1].Position.y + 380 + this.Position.y;        
         }
         return blockPos;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
 }

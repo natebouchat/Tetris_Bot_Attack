@@ -94,6 +94,9 @@ public class tetrisBoard : Node2D
                     block.blockMoveUp();
                     createInstance(block.getBlockPos());
                 }
+                else {
+                    HUD.addToScore(3);
+                }
             }
         }
         if (Input.IsActionJustPressed("ui_up")) {
@@ -106,11 +109,13 @@ public class tetrisBoard : Node2D
     }
 
     private void createInstance(float[,] blockPos) {
+        HUD.addToScore(20);
         for(int i = 0; i < 4; i++) {
             if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
                 if(board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] == null) {
                     Sprite DownedBlockInstance = (Sprite)DownedBlocks.Instance();
                     AddChild(DownedBlockInstance);
+                    DownedBlockInstance.Modulate = block.getColor();
                     DownedBlockInstance.Position = new Vector2(blockPos[0,i] - 180, blockPos[1,i] - 380);
                     board[((int)blockPos[0,i]/40), ((int)(blockPos[1,i])/40)] = DownedBlockInstance;
                 }
@@ -156,7 +161,7 @@ public class tetrisBoard : Node2D
                 }
             }
         }
-        HUD.addToScore(1000 * combo * combo);
+        HUD.addToScore(500 * combo * combo);
     }
 
     private void pushDownOverEmpty() {
