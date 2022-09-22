@@ -6,17 +6,21 @@ public class tetrisBoard : Node2D
     private int delay;
     private Sprite[,] board;
     private BlockControl block;
+    private TetHud HUD;
     private Vector2 _screenSize;
     private Vector2 blocksDown1;
+    private int lines;
+    private int combo;
     
     [Export]
-    public int tickTime = 10;
+    public int tickTime = 30;
     [Export]
     public PackedScene DownedBlocks;
 
     public override void _Ready()
     {
         _screenSize = GetViewport().Size;
+        HUD = GetNode<TetHud>("../HUD");
 
         board = new Sprite[10, 20];
         for(int i = 0; i < 20; i++) {
@@ -29,6 +33,7 @@ public class tetrisBoard : Node2D
         blocksDown1 = new Vector2(0, -40);
         timer = 0;
         delay = 0;
+        lines = 0;
     }
 
     public override void _Process(float delta)
@@ -49,6 +54,7 @@ public class tetrisBoard : Node2D
                 createInstance(block.getBlockPos());
             }
             completedLine();
+            HUD.redraw();
         }
     }
 
@@ -126,7 +132,8 @@ public class tetrisBoard : Node2D
         return false;
     }
 
-    private bool completedLine() {
+    private void completedLine() {
+        combo = 0;
         for(int i = 0; i < 20; i++) {
             for(int j = 0; j < 10; j++) {
                 if(board[j, i] == null) {
@@ -136,12 +143,20 @@ public class tetrisBoard : Node2D
                     for(int k = 0; k < 10; k++) {
                         RemoveChild(board[k, i]);
                         board[k, i] = null;
-                        delay = 5;
+                    }
+                    combo += 1;
+                    delay = 5;
+                    HUD.addOneToLines();
+                    lines++;
+                    if(lines >= 10) {
+                        HUD.addOneToLevel();
+                        tickTime = (tickTime*2)/3;
+                        lines -= 10;
                     }
                 }
             }
         }
-        return true;
+        HUD.addToScore(1000 * combo * combo);
     }
 
     private void pushDownOverEmpty() {
