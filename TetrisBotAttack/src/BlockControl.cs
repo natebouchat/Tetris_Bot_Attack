@@ -53,12 +53,12 @@ public class BlockControl : Sprite
         this.Position -= down1;
     }
 
-    public void blockMoveRight() {
-            this.Position += right1;
+    public void blockMoveRight(int times) {
+            this.Position += (right1 * times);
     }
 
-    public void blockMoveLeft() {
-            this.Position -= right1;
+    public void blockMoveLeft( int times) {
+            this.Position -= (right1 * times);
     }
 
     public bool rotateBlocks(char direction) {
@@ -202,6 +202,9 @@ public class BlockControl : Sprite
     public void setShape(int rand) {
         shapeID = rand;
         setChildBlockPosition();
+    }
+    public int getShape() {
+        return shapeID;
     }
 
     public Color getColor() {

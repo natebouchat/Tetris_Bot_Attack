@@ -50,7 +50,7 @@ script = ExtResource( 3 )
 DownedBlocks = ExtResource( 5 )
 
 [node name="Block" type="Sprite" parent="10X20"]
-position = Vector2( -180, -380 )
+position = Vector2( -20, -340 )
 texture = ExtResource( 2 )
 script = ExtResource( 4 )
 ChildBlock = ExtResource( 5 )

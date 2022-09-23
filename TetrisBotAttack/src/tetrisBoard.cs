@@ -11,6 +11,9 @@ public class tetrisBoard : Node2D
     private BlockControl block;
     private BlockControl next;
     private BlockControl held;
+    private int tempShape;
+    private bool firstHold;
+    private bool hasHeldThisTurn;
     private TetHud HUD;
     private Vector2 _screenSize;
     private Vector2 blocksDown1;
@@ -42,6 +45,8 @@ public class tetrisBoard : Node2D
         randNumber = rand.Next(7);
         next.setShape(randNumber);
         held = GetChild<BlockControl>(2);
+        firstHold = true;
+        hasHeldThisTurn = false;
         held.Hide();
 
         blocksDown1 = new Vector2(0, -40);
@@ -77,44 +82,16 @@ public class tetrisBoard : Node2D
     private void playerInput() {
         if (Input.IsActionJustPressed("ui_right"))
         {
-            block.blockMoveRight();
+            block.blockMoveRight(1);
             if(hasCollided(block.getBlockPos()) == true) {
-                block.blockMoveLeft();
+                block.blockMoveLeft(1);
             }
         }
         if (Input.IsActionJustPressed("ui_left"))
         {
-            block.blockMoveLeft();
+            block.blockMoveLeft(1);
             if(hasCollided(block.getBlockPos()) == true) {
-                block.blockMoveRight();
-            }
-        }
-        if (Input.IsActionJustPressed("rotateLeft")) {
-            block.rotateBlocks('l');
-            if(hasCollided(block.getBlockPos()) == true) {
-                block.blockMoveRight();
-                if(hasCollided(block.getBlockPos()) == true) {
-                    block.blockMoveLeft();
-                    block.blockMoveLeft();
-                    if(hasCollided(block.getBlockPos()) == true) {
-                        block.blockMoveRight();
-                        block.rotateBlocks('r');
-                    }
-                }
-            }
-        }
-        if (Input.IsActionJustPressed("rotateRight")) {
-            block.rotateBlocks('r');
-            if(hasCollided(block.getBlockPos()) == true) {
-                block.blockMoveRight();
-                if(hasCollided(block.getBlockPos()) == true) {
-                    block.blockMoveLeft();
-                    block.blockMoveLeft();
-                    if(hasCollided(block.getBlockPos()) == true) {
-                        block.blockMoveRight();
-                        block.rotateBlocks('l');
-                    }
-                }
+                block.blockMoveRight(1);
             }
         }
         if (Input.IsActionPressed("ui_down")) {   
@@ -137,10 +114,38 @@ public class tetrisBoard : Node2D
             block.blockMoveUp();
             createInstance(block.getBlockPos());
         }
+        if (Input.IsActionJustPressed("rotateLeft")) {
+            block.rotateBlocks('l');
+            if(hasCollided(block.getBlockPos()) == true) {
+                smartRotate();
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveRight(1);
+                    block.rotateBlocks('r');
+                }
+                
+            }
+        }
+        if (Input.IsActionJustPressed("rotateRight")) {
+            block.rotateBlocks('r');
+            if(hasCollided(block.getBlockPos()) == true) {
+                smartRotate();
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveRight(1);
+                    block.rotateBlocks('l');
+                }
+                
+            }
+        }
+        if (Input.IsActionJustPressed("hold")) {
+            holdBlock();
+        }
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void createInstance(float[,] blockPos) {
         HUD.addToScore(10);
+        hasHeldThisTurn = false;
         for(int i = 0; i < 4; i++) {
             if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
                 if(board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] == null) {
@@ -170,6 +175,46 @@ public class tetrisBoard : Node2D
         return false;
     }
 
+    private void smartRotate() {
+        block.blockMoveRight(1);
+        if(hasCollided(block.getBlockPos()) == true) {
+            block.blockMoveLeft(2);
+            if(block.getShape() > 5) {
+                block.blockMoveLeft(1);
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveRight(4);
+                    if(hasCollided(block.getBlockPos()) == true) {
+                        block.blockMoveLeft(2);
+                    }
+                }
+            }
+        }
+    }
+
+    private void holdBlock() {
+
+        if(firstHold == false && hasHeldThisTurn == false) {
+            tempShape = held.getShape();
+            held.setShape(block.getShape());
+            block.setShape(tempShape);
+            hasHeldThisTurn = true;
+            if(hasCollided(block.getBlockPos()) == true) {
+                block.setShape(held.getShape());
+                held.setShape(tempShape);
+            }
+        }
+        else if(firstHold == true) {
+            tempShape = held.getShape();
+            held.setShape(block.getShape());
+            firstHold = false;
+            held.Show();
+            block.setShape(randNumber);
+            block.resetBlock();
+            randNumber = rand.Next(7);
+            next.setShape(randNumber);
+        }
+    }
+
     private void completedLine() {
         combo = 0;
         for(int i = 0; i < 20; i++) {
@@ -188,7 +233,7 @@ public class tetrisBoard : Node2D
                     lines++;
                     if(lines >= 10) {
                         HUD.addOneToLevel();
-                        tickTime = (tickTime*2)/3;
+                        tickTime = (tickTime*3)/4;
                         lines -= 10;
                     }
                 }
