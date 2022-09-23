@@ -2,10 +2,15 @@ using Godot;
 using System;
 
 public class tetrisBoard : Node2D
-{   private float timer;
+{   
+    private float timer;
     private int delay;
+    private Random rand;
+    private int randNumber;
     private Sprite[,] board;
     private BlockControl block;
+    private BlockControl next;
+    private BlockControl held;
     private TetHud HUD;
     private Vector2 _screenSize;
     private Vector2 blocksDown1;
@@ -21,6 +26,7 @@ public class tetrisBoard : Node2D
     {
         _screenSize = GetViewport().Size;
         HUD = GetNode<TetHud>("../HUD");
+        rand = new Random();
 
         board = new Sprite[10, 20];
         for(int i = 0; i < 20; i++) {
@@ -30,6 +36,14 @@ public class tetrisBoard : Node2D
         }
 
         block = GetChild<BlockControl>(0);
+        block.resetBlock();
+        block.setShape(rand.Next(7));
+        next = GetChild<BlockControl>(1);
+        randNumber = rand.Next(7);
+        next.setShape(randNumber);
+        held = GetChild<BlockControl>(2);
+        held.Hide();
+
         blocksDown1 = new Vector2(0, -40);
         timer = 0;
         delay = 0;
@@ -111,13 +125,13 @@ public class tetrisBoard : Node2D
                     createInstance(block.getBlockPos());
                 }
                 else {
-                    HUD.addToScore(3);
+                    HUD.addToScore(1);
                 }
             }
         }
         if (Input.IsActionJustPressed("ui_up")) {
             while(hasCollided(block.getBlockPos()) == false) {
-                HUD.addToScore(5);
+                HUD.addToScore(2);
                 block.blockMoveDown();
             }
             block.blockMoveUp();
@@ -126,7 +140,7 @@ public class tetrisBoard : Node2D
     }
 
     private void createInstance(float[,] blockPos) {
-        HUD.addToScore(20);
+        HUD.addToScore(10);
         for(int i = 0; i < 4; i++) {
             if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
                 if(board[((int)blockPos[0,i]/40), ((int)blockPos[1, i]/40)] == null) {
@@ -138,8 +152,10 @@ public class tetrisBoard : Node2D
                 }
             }
         }
-
+        block.setShape(randNumber);
         block.resetBlock();
+        randNumber = rand.Next(7);
+        next.setShape(randNumber);
     }
 
     private bool hasCollided(float[,] blockPos) {

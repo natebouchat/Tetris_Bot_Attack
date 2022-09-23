@@ -54,3 +54,15 @@ position = Vector2( -180, -380 )
 texture = ExtResource( 2 )
 script = ExtResource( 4 )
 ChildBlock = ExtResource( 5 )
+
+[node name="Next" type="Sprite" parent="10X20"]
+position = Vector2( 418.667, 42.6667 )
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+ChildBlock = ExtResource( 5 )
+
+[node name="Held" type="Sprite" parent="10X20"]
+position = Vector2( -369.333, -262.667 )
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+ChildBlock = ExtResource( 5 )

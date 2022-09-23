@@ -17,7 +17,7 @@ public class TetHud : CanvasLayer
     {
         score = 0;
         lines = 0;
-        level = 0;
+        level = 1;
         scoreText = "Score: 0";
         linesText = "Lines: 0";
         levelText = "Level: 0";

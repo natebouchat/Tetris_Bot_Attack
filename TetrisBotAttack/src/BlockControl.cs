@@ -3,12 +3,13 @@ using System;
 
 public class BlockControl : Sprite
 {
-    private Random rand;
-    private int randNumber;
+    private int shapeID;
+    private int held;
     private Vector2 down1;
     private Vector2 right1;
     private Vector2 startPosition;
     private float[,] blockPos;
+    private float[,] heldBlock;
     private Sprite[] childBlocks;
     private int sign;
     private Color color;
@@ -19,14 +20,13 @@ public class BlockControl : Sprite
 
     public override void _Ready()
     {
-        rand = new Random();
         down1 = new Vector2(0, 40);
         right1 = new Vector2(40, 0);
         blockPos = new float[2,4];
         childBlocks = new Sprite[3];
         sign = 1;
         startPosition = new Vector2(-20, -340);
-        this.Position = startPosition;
+        shapeID = 0;
 
         intializeChildrenInstances();
         setChildBlockPosition();  
@@ -119,23 +119,22 @@ public class BlockControl : Sprite
     }
 
     private void setChildBlockPosition() {       
-        randNumber = rand.Next(7);
-        if(randNumber == 0) {
+        if(shapeID == 0) {
             setShapeT();
         }
-        else if(randNumber == 1) {
+        else if(shapeID == 1) {
             setShapeS();
         }
-        else if(randNumber == 2) {
+        else if(shapeID == 2) {
             setShapeZ();
         }
-        else if(randNumber == 3) {
+        else if(shapeID == 3) {
             setShapeL();
         }
-        else if(randNumber == 4) {
+        else if(shapeID == 4) {
             setShapeWaluigi();
         }
-        else if(randNumber == 5) {
+        else if(shapeID == 5) {
             setShapeSquare();
         }
         else {
@@ -198,6 +197,11 @@ public class BlockControl : Sprite
             blockPos[1,j] = childBlocks[j-1].Position.y + 380 + this.Position.y;        
         }
         return blockPos;
+    }
+
+    public void setShape(int rand) {
+        shapeID = rand;
+        setChildBlockPosition();
     }
 
     public Color getColor() {
