@@ -10,9 +10,6 @@ public class TetHud : CanvasLayer
     String linesText;
     String levelText;
 
-    [Export]
-    public PackedScene peekBlock;
-
     public override void _Ready()
     {
         score = 0;

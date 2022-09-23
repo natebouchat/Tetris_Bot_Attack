@@ -4,14 +4,12 @@ using System;
 public class BlockControl : Sprite
 {
     private int shapeID;
-    private int held;
+    private int rotation;
     private Vector2 down1;
     private Vector2 right1;
     private Vector2 startPosition;
     private float[,] blockPos;
-    private float[,] heldBlock;
     private Sprite[] childBlocks;
-    private int sign;
     private Color color;
 
 
@@ -24,9 +22,9 @@ public class BlockControl : Sprite
         right1 = new Vector2(40, 0);
         blockPos = new float[2,4];
         childBlocks = new Sprite[3];
-        sign = 1;
         startPosition = new Vector2(-20, -340);
         shapeID = 0;
+        rotation = 0;
 
         intializeChildrenInstances();
         setChildBlockPosition();  
@@ -62,8 +60,15 @@ public class BlockControl : Sprite
     }
 
     public bool rotateBlocks(char direction) {
+        if(direction == 'l') {
+            rotationCount(1);
+        }
+        else{
+            rotationCount(-1);
+        }
+
         for(int i = 0; i < 3; i++) {
-            sign = 1;
+            int sign = 1;
             if((childBlocks[i].Position.x < 0 || childBlocks[i].Position.y < 0 || childBlocks[i].Position.x == childBlocks[i].Position.y)) {
                 sign = sign*-1;
                 if(Math.Abs(childBlocks[i].Position.x) == Math.Abs(childBlocks[i].Position.y) && childBlocks[i].Position.x > 0) {
@@ -92,7 +97,7 @@ public class BlockControl : Sprite
                     childBlocks[i].Position = down1 * sign;
                 }
             }
-            //<\> corner check
+            //corner check
             else if(direction == 'r') {
                 if(childBlocks[i].Position.x == childBlocks[i].Position.y) {
                     childBlocks[i].Position += (2 * down1 * sign);
@@ -113,8 +118,19 @@ public class BlockControl : Sprite
         return false;
     }
 
+    private void rotationCount(int rot) {
+        rotation += rot;
+        if(rotation == 4) {
+            rotation = 0;
+        }
+        else if (rotation == -1) {
+            rotation = 3;
+        }
+    }
+
     public void resetBlock() {
         this.Position = startPosition;
+        rotation = 0;
         setChildBlockPosition();
     }
 
@@ -205,6 +221,13 @@ public class BlockControl : Sprite
     }
     public int getShape() {
         return shapeID;
+    }
+
+    public void resetRotationCount() {
+        rotation = 0;
+    }
+    public int getRotation() {
+        return rotation;
     }
 
     public Color getColor() {

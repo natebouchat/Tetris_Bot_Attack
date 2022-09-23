@@ -192,15 +192,22 @@ public class tetrisBoard : Node2D
     }
 
     private void holdBlock() {
-
         if(firstHold == false && hasHeldThisTurn == false) {
             tempShape = held.getShape();
             held.setShape(block.getShape());
             block.setShape(tempShape);
-            hasHeldThisTurn = true;
             if(hasCollided(block.getBlockPos()) == true) {
                 block.setShape(held.getShape());
+                int tempRotation = block.getRotation();
+                block.resetRotationCount();
+                for(int i = tempRotation; i > 0; i--) {
+                    block.rotateBlocks('l');
+                }
                 held.setShape(tempShape);
+            }
+            else{
+                block.resetRotationCount();
+                hasHeldThisTurn = true;
             }
         }
         else if(firstHold == true) {
