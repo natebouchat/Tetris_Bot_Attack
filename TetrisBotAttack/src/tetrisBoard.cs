@@ -78,13 +78,29 @@ public class tetrisBoard : Node2D
         if (Input.IsActionJustPressed("rotateLeft")) {
             block.rotateBlocks('l');
             if(hasCollided(block.getBlockPos()) == true) {
-                block.rotateBlocks('r');
+                block.blockMoveRight();
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveLeft();
+                    block.blockMoveLeft();
+                    if(hasCollided(block.getBlockPos()) == true) {
+                        block.blockMoveRight();
+                        block.rotateBlocks('r');
+                    }
+                }
             }
         }
         if (Input.IsActionJustPressed("rotateRight")) {
             block.rotateBlocks('r');
             if(hasCollided(block.getBlockPos()) == true) {
-                block.rotateBlocks('l');
+                block.blockMoveRight();
+                if(hasCollided(block.getBlockPos()) == true) {
+                    block.blockMoveLeft();
+                    block.blockMoveLeft();
+                    if(hasCollided(block.getBlockPos()) == true) {
+                        block.blockMoveRight();
+                        block.rotateBlocks('l');
+                    }
+                }
             }
         }
         if (Input.IsActionPressed("ui_down")) {   
@@ -101,6 +117,7 @@ public class tetrisBoard : Node2D
         }
         if (Input.IsActionJustPressed("ui_up")) {
             while(hasCollided(block.getBlockPos()) == false) {
+                HUD.addToScore(5);
                 block.blockMoveDown();
             }
             block.blockMoveUp();
