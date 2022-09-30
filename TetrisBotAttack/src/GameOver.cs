@@ -11,7 +11,7 @@ public class GameOver : Control
 	public void GameOverScreen() {
 			Visible = !Visible;
             GetNode<Button>("CenterContainer/VBoxContainer/quit").GrabFocus();
-		
+			GetParent().RemoveChild(GetNode<PauseMenu>("../PauseMenu"));
 	}
 
 	private void OnRestartBtnPressed() {
