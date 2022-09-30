@@ -27,6 +27,7 @@ public class tetrisBoard : Node2D
 
 	public override void _Ready()
 	{
+		GetTree().Paused = false;
 		_screenSize = GetViewport().Size;
 		HUD = GetNode<TetHud>("../HUD");
 		rand = new Random();
@@ -75,6 +76,11 @@ public class tetrisBoard : Node2D
 			completedLine();
 			HUD.redraw();
 		}
+		else {
+			GetNode<GameOver>("../HUD/GameOver").GameOverScreen();
+			GetTree().Paused = true;
+		}
+
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +145,7 @@ public class tetrisBoard : Node2D
 			}
 		}
 		if (Input.IsActionJustPressed("hold")) {
+			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
 			holdBlock();
 		}
 	}

@@ -20,6 +20,7 @@ public class PauseMenu : Control
 			isPaused = !isPaused;
 			GetTree().Paused = isPaused;
 			Visible = !Visible;
+			GetNode<Button>("CenterContainer/VBoxContainer/resume").GrabFocus();
 		}
 	}
 
