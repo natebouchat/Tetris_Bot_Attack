@@ -116,6 +116,7 @@ public class tetrisBoard : Node2D
 		}
 		if (Input.IsActionJustPressed("rotateLeft")) {
 			block.rotateBlocks('l');
+			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
 			if(hasCollided(block.getBlockPos()) == true) {
 				smartRotate();
 				if(hasCollided(block.getBlockPos()) == true) {
@@ -127,6 +128,7 @@ public class tetrisBoard : Node2D
 		}
 		if (Input.IsActionJustPressed("rotateRight")) {
 			block.rotateBlocks('r');
+			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
 			if(hasCollided(block.getBlockPos()) == true) {
 				smartRotate();
 				if(hasCollided(block.getBlockPos()) == true) {
@@ -145,6 +147,7 @@ public class tetrisBoard : Node2D
 
 	private void createInstance(float[,] blockPos) {
 		HUD.addToScore(10);
+		GetNode<AudioStreamPlayer2D>("sfx/drop").Play();
 		hasHeldThisTurn = false;
 		for(int i = 0; i < 4; i++) {
 			if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
@@ -238,10 +241,12 @@ public class tetrisBoard : Node2D
 					delay = 5;
 					HUD.addOneToLines();
 					lines++;
+					GetNode<AudioStreamPlayer2D>("sfx/lineClear").Play();
 					if(lines >= 10) {
 						HUD.addOneToLevel();
 						tickTime = (tickTime*3)/4;
 						lines -= 10;
+						GetNode<AudioStreamPlayer2D>("sfx/levelClear").Play();
 					}
 				}
 			}
