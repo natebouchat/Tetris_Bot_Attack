@@ -51,7 +51,7 @@ public class tetrisBoard : Node2D
 		held.Hide();
 
 		blocksDown1 = new Vector2(0, -40);
-		timer = 0;
+		timer = tickTime;
 		delay = 0;
 		lines = 0;
 	}
@@ -62,16 +62,18 @@ public class tetrisBoard : Node2D
 		if(board[4, 1] == null) {
 			playerInput();
 
-			timer += 1;
-			if (timer >= tickTime + delay) {
-				timer = timer - (tickTime + delay);
+			timer -= 1 * (delta * 60);
+			if (timer <= 0) {
+				timer = tickTime + delay;
 				delay = 0;
 				pushDownOverEmpty();
 				block.blockMoveDown();
+				landBuffer();
 			}
 			if(hasCollided(block.getBlockPos()) == true) {
 				block.blockMoveUp();
 				createInstance(block.getBlockPos());
+				delay = 0;
 			}
 			completedLine();
 			HUD.redraw();
@@ -171,6 +173,14 @@ public class tetrisBoard : Node2D
 		block.resetBlock();
 		randNumber = rand.Next(7);
 		next.setShape(randNumber);
+	}
+
+	private void landBuffer() {
+		block.blockMoveDown();
+		if(hasCollided(block.getBlockPos()) == true) {
+			delay = 10;
+		}
+		block.blockMoveUp();
 	}
 
 	private bool hasCollided(float[,] blockPos) {
