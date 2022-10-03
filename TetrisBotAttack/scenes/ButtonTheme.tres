@@ -14,7 +14,7 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxTexture" id=9]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 300, 150 )
-modulate_color = Color( 0, 1, 1, 1 )
+modulate_color = Color( 0, 0.862745, 1, 1 )
 
 [sub_resource type="StyleBoxTexture" id=10]
 texture = ExtResource( 1 )
