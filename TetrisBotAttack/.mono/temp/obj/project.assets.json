@@ -420,11 +420,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj",
+      "projectUniqueName": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj",
       "projectName": "TetrisBotAttack",
-      "projectPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj",
+      "projectPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj",
       "packagesPath": "C:\\Users\\burnt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\Tetris_Bot_Attack\\TetrisBotAttack\\.mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\burnt\\AppData\\Roaming\\NuGet\\NuGet.Config"

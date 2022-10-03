@@ -30,6 +30,10 @@ public class PauseMenu : Control
 		Visible = false;
 	}
 
+	private void OnRestartBtnPressed() {
+        GetNode<SceneChanger>("../sceneChanger").ChangeScene("res://scenes/tet.tscn");
+	}
+
 	private void OnQuitBtnPressed() {
 		GetTree().Quit();
 	}

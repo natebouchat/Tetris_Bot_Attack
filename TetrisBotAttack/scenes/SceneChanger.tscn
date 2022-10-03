@@ -32,7 +32,8 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="sceneChanger" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="Control" type="Control" parent="."]

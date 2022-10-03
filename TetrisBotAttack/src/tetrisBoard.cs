@@ -199,12 +199,12 @@ public class tetrisBoard : Node2D
 		block.blockMoveRight(1);
 		if(hasCollided(block.getBlockPos()) == true) {
 			block.blockMoveLeft(2);
-			if(block.getShape() > 5) {
+			if(block.getShape() > 5 && hasCollided(block.getBlockPos()) == true) {
 				block.blockMoveLeft(1);
 				if(hasCollided(block.getBlockPos()) == true) {
 					block.blockMoveRight(4);
 					if(hasCollided(block.getBlockPos()) == true) {
-						block.blockMoveLeft(2);
+						block.blockMoveLeft(3);
 					}
 				}
 			}

@@ -15,7 +15,7 @@ public class GameOver : Control
 	}
 
 	private void OnRestartBtnPressed() {
-        GetNode<SceneChanger>("CenterContainer/VBoxContainer/sceneChanger").ChangeScene("res://scenes/tet.tscn");
+        GetNode<SceneChanger>("../sceneChanger").ChangeScene("res://scenes/tet.tscn");
 	}
 
 	private void OnQuitBtnPressed() {
