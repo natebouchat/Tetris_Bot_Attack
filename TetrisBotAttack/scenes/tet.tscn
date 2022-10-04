@@ -8,13 +8,13 @@
 [ext_resource path="res://assets/MassiveBassline-7elR.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://src/TetHud.cs" type="Script" id=7]
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/TetrisARemix.wav" type="AudioStream" id=9]
-[ext_resource path="res://assets/sfxDrop.wav" type="AudioStream" id=10]
-[ext_resource path="res://assets/sfxLevelClear.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/sfxLineClear.wav" type="AudioStream" id=12]
-[ext_resource path="res://assets/sfxRotate.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sound/TetrisARemix.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sound/sfxDrop.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sound/sfxLevelClear.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sound/sfxLineClear.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/sound/sfxRotate.wav" type="AudioStream" id=13]
 [ext_resource path="res://scenes/GameOver.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/TedBot2.png" type="Texture" id=15]
+[ext_resource path="res://scenes/tedbot.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/SceneChanger.tscn" type="PackedScene" id=16]
 
 [sub_resource type="DynamicFont" id=1]
@@ -111,7 +111,8 @@ stream = ExtResource( 9 )
 volume_db = -20.0
 autoplay = true
 
-[node name="TedBot2" type="Sprite" parent="."]
-position = Vector2( 194, 431 )
-scale = Vector2( 1.3, 1.3 )
-texture = ExtResource( 15 )
+[node name="Tedbot" parent="." instance=ExtResource( 15 )]
+margin_left = 232.0
+margin_top = 416.0
+margin_right = 232.0
+margin_bottom = 416.0

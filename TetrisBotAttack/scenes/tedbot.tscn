@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Animation/tedIdle2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Animation/tedIdle3.png" type="Texture" id=5]
+[ext_resource path="res://assets/Animation/tedIdle7.png" type="Texture" id=9]
+[ext_resource path="res://assets/Animation/tedIdle9.png" type="Texture" id=11]
+[ext_resource path="res://assets/Animation/tedIdle1.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 12 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 24.0
+} ]
+
+[node name="Tedbot" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Idle"
+frame = 7
+playing = true
