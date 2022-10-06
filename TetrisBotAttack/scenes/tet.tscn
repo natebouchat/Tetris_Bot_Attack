@@ -65,8 +65,6 @@ margin_bottom = 300.0
 [node name="PauseMenu" parent="HUD" instance=ExtResource( 8 )]
 visible = false
 
-[node name="sceneChanger" parent="HUD" instance=ExtResource( 16 )]
-
 [node name="10X20" type="Sprite" parent="."]
 position = Vector2( 500, 300 )
 scale = Vector2( 0.75, 0.75 )
@@ -116,3 +114,6 @@ margin_left = 232.0
 margin_top = 416.0
 margin_right = 232.0
 margin_bottom = 416.0
+
+[node name="sceneChanger" parent="." instance=ExtResource( 16 )]
+visible = false

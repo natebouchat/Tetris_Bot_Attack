@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tedIdle7.png-c7e636f1e6254124034d6284898863b4.stex"
+path="res://.import/tedIdle7.png-2f31fe6310974fd6e768b4c6e9fd7aac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Animation/tedIdle7.png"
-dest_files=[ "res://.import/tedIdle7.png-c7e636f1e6254124034d6284898863b4.stex" ]
+source_file="res://assets/Animation/TedIdle/tedIdle7.png"
+dest_files=[ "res://.import/tedIdle7.png-2f31fe6310974fd6e768b4c6e9fd7aac.stex" ]
 
 [params]
 

@@ -264,6 +264,7 @@ public class tetrisBoard : Node2D
 						tickTime = (tickTime*3)/4;
 						lines -= 10;
 						GetNode<AudioStreamPlayer2D>("sfx/levelClear").Play();
+						GetNode<tedbot>("../Tedbot").startingAnimations();
 					}
 				}
 			}
