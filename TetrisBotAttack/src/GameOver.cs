@@ -12,6 +12,7 @@ public class GameOver : Control
 		Visible = false;
 		restart = GetNode<Button>("CenterContainer/VBoxContainer/restart");
 		quit = GetNode<Button>("CenterContainer/VBoxContainer/quit");
+		this.SetProcess(false);
 	}
 
 	public override void _Process(float delta) {
@@ -19,12 +20,11 @@ public class GameOver : Control
 		checkFocus();
 	}
 
-
-
 	public void GameOverScreen() {
-			Visible = !Visible;
-            restart.GrabFocus();
-			GetParent().RemoveChild(GetNode<PauseMenu>("../PauseMenu"));
+		this.SetProcess(true);
+		Visible = !Visible;
+		restart.GrabFocus();
+		GetParent().RemoveChild(GetNode<PauseMenu>("../PauseMenu"));
 	}
 
 	private void OnRestartBtnPressed() {

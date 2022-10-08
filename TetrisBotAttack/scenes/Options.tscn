@@ -15,6 +15,7 @@ font_data = ExtResource( 3 )
 
 [node name="Options" type="Control"]
 pause_mode = 2
+process_priority = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -96,6 +97,9 @@ focus_neighbour_bottom = NodePath("../GridContainer/musicVolume")
 theme = ExtResource( 4 )
 text = "Back"
 
+[connection signal="mouse_entered" from="GridContainer/musicVolume" to="." method="checkHover"]
 [connection signal="value_changed" from="GridContainer/musicVolume" to="." method="SFXVolumeChanged"]
+[connection signal="mouse_entered" from="GridContainer/sfxVolume" to="." method="checkHover"]
 [connection signal="value_changed" from="GridContainer/sfxVolume" to="." method="MusicVolumeChanged"]
+[connection signal="mouse_entered" from="Back" to="." method="checkHover"]
 [connection signal="pressed" from="Back" to="." method="BackBtnPressed"]
