@@ -98,8 +98,8 @@ theme = ExtResource( 4 )
 text = "Back"
 
 [connection signal="mouse_entered" from="GridContainer/musicVolume" to="." method="checkHover"]
-[connection signal="value_changed" from="GridContainer/musicVolume" to="." method="SFXVolumeChanged"]
+[connection signal="value_changed" from="GridContainer/musicVolume" to="." method="MusicVolumeChanged"]
 [connection signal="mouse_entered" from="GridContainer/sfxVolume" to="." method="checkHover"]
-[connection signal="value_changed" from="GridContainer/sfxVolume" to="." method="MusicVolumeChanged"]
+[connection signal="value_changed" from="GridContainer/sfxVolume" to="." method="SFXVolumeChanged"]
 [connection signal="mouse_entered" from="Back" to="." method="checkHover"]
 [connection signal="pressed" from="Back" to="." method="BackBtnPressed"]

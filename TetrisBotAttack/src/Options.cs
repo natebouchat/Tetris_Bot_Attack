@@ -14,6 +14,9 @@ public class Options : Control
         buttons[0] = GetNode<Slider>("GridContainer/musicVolume");
         buttons[1] = GetNode<Slider>("GridContainer/sfxVolume");
         buttons[2] = GetNode<Button>("Back");
+
+        ((Slider)buttons[0]).Value = GlobalSettings.musicVolume;
+        ((Slider)buttons[1]).Value = GlobalSettings.sfxVolume;
         for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].FocusMode = (FocusModeEnum)0;
 		}
@@ -36,14 +39,27 @@ public class Options : Control
 
     private void SFXVolumeChanged(float value) {
         GlobalSettings.sfxVolume = value;
+        if(value == 0) {
+            GlobalSettings.sfxMuted = true;
+        }
+        else {
+            GlobalSettings.sfxMuted = false;
+        }
     }
 
     private void MusicVolumeChanged(float value) {
         GlobalSettings.musicVolume = value;
+        if(value == 0) {
+            GlobalSettings.musicMuted = true;
+        }
+        else {
+            GlobalSettings.musicMuted = false;
+        }
     }
 
     public void BackBtnPressed() {
         GetNode<SoundManager>("../../../Sound").setSoundVolumes();
+        GlobalSettings.saveGame();
         Visible = false;
         for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].FocusMode = (FocusModeEnum)0;
