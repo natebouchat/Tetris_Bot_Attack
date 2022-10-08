@@ -5,20 +5,21 @@ public class tetrisBoard : Node2D
 {   
 	private float timer;
 	private int delay;
+	private int lines;
+	private int combo;
 	private Random rand;
 	private int randNumber;
+	private int tempShape;
+	private bool firstHold;
+	private bool hasHeldThisTurn;
 	private Sprite[,] board;
 	private BlockControl block;
 	private BlockControl next;
 	private BlockControl held;
-	private int tempShape;
-	private bool firstHold;
-	private bool hasHeldThisTurn;
 	private TetHud HUD;
+	private SoundManager sound;
 	private Vector2 _screenSize;
 	private Vector2 blocksDown1;
-	private int lines;
-	private int combo;
 	
 	[Export]
 	public int tickTime = 30;
@@ -30,7 +31,7 @@ public class tetrisBoard : Node2D
 		GetTree().Paused = false;
 		_screenSize = GetViewport().Size;
 		HUD = GetNode<TetHud>("../HUD");
-		rand = new Random();
+		sound = GetNode<SoundManager>("../Sound");
 
 		board = new Sprite[10, 20];
 		for(int i = 0; i < 20; i++) {
@@ -39,6 +40,7 @@ public class tetrisBoard : Node2D
 		   }
 		}
 
+		rand = new Random();
 		block = GetChild<BlockControl>(0);
 		block.resetBlock();
 		block.setShape(rand.Next(7));
@@ -124,7 +126,7 @@ public class tetrisBoard : Node2D
 		}
 		if (Input.IsActionJustPressed("rotateLeft")) {
 			block.rotateBlocks('l');
-			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
+			sound.playSFX("rotate");
 			if(hasCollided(block.getBlockPos()) == true) {
 				smartRotate();
 				if(hasCollided(block.getBlockPos()) == true) {
@@ -136,7 +138,7 @@ public class tetrisBoard : Node2D
 		}
 		if (Input.IsActionJustPressed("rotateRight")) {
 			block.rotateBlocks('r');
-			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
+			sound.playSFX("rotate");
 			if(hasCollided(block.getBlockPos()) == true) {
 				smartRotate();
 				if(hasCollided(block.getBlockPos()) == true) {
@@ -147,7 +149,7 @@ public class tetrisBoard : Node2D
 			}
 		}
 		if (Input.IsActionJustPressed("hold")) {
-			GetNode<AudioStreamPlayer2D>("sfx/rotate").Play();
+			sound.playSFX("rotate");
 			holdBlock();
 		}
 	}
@@ -156,7 +158,7 @@ public class tetrisBoard : Node2D
 
 	private void createInstance(float[,] blockPos) {
 		HUD.addToScore(10);
-		GetNode<AudioStreamPlayer2D>("sfx/drop").Play();
+		sound.playSFX("drop");
 		hasHeldThisTurn = false;
 		for(int i = 0; i < 4; i++) {
 			if((blockPos[1,i])/40 > 0 && (blockPos[1,i])/40 < 40) {
@@ -258,13 +260,13 @@ public class tetrisBoard : Node2D
 					delay = 5;
 					HUD.addOneToLines();
 					lines++;
-					GetNode<AudioStreamPlayer2D>("sfx/lineClear").Play();
+					sound.playSFX("lineClear");
 					if(lines >= 10) {
 						HUD.addOneToLevel();
 						tickTime = (tickTime*3)/4;
 						lines -= 10;
-						GetNode<AudioStreamPlayer2D>("sfx/levelClear").Play();
-						GetNode<tedbot>("../Tedbot").startingAnimations();
+						sound.playSFX("levelClear");
+						GetNode<tedbot>("../HUD/Tedbot").startingAnimations();
 					}
 				}
 			}

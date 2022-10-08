@@ -15,8 +15,8 @@ public class tedbot : Control
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         TedbotSP = GetNode<AnimatedSprite>("AnimatedSprite");
         hatFolder = new Directory();
-        initializeAllhats();
-        printHats();
+        //initializeAllhats();
+        //printHats();
         //hat = GetNode<Sprite>("AnimatedSprite/hat");
         //hat.Texture = (Texture)(ResourceLoader.Load("res://assets/hats/hat_block.png"));
         startingAnimations();

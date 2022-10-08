@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/10x20.jpg" type="Texture" id=1]
 [ext_resource path="res://assets/block.jpg" type="Texture" id=2]
@@ -8,14 +8,11 @@
 [ext_resource path="res://assets/MassiveBassline-7elR.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://src/TetHud.cs" type="Script" id=7]
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/sound/TetrisARemix.wav" type="AudioStream" id=9]
-[ext_resource path="res://assets/sound/sfxDrop.wav" type="AudioStream" id=10]
-[ext_resource path="res://assets/sound/sfxLevelClear.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/sound/sfxLineClear.wav" type="AudioStream" id=12]
-[ext_resource path="res://assets/sound/sfxRotate.wav" type="AudioStream" id=13]
+[ext_resource path="res://scenes/SoundManager.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/GameOver.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/tedbot.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/SceneChanger.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/Options.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -51,6 +48,12 @@ margin_bottom = 242.0
 custom_fonts/font = SubResource( 1 )
 text = "Level: "
 
+[node name="Tedbot" parent="HUD" instance=ExtResource( 15 )]
+margin_left = 231.0
+margin_top = 416.0
+margin_right = 231.0
+margin_bottom = 416.0
+
 [node name="GameOver" parent="HUD" instance=ExtResource( 14 )]
 visible = false
 anchor_left = 0.5
@@ -63,6 +66,9 @@ margin_right = 512.0
 margin_bottom = 300.0
 
 [node name="PauseMenu" parent="HUD" instance=ExtResource( 8 )]
+visible = false
+
+[node name="Options" parent="HUD/PauseMenu" instance=ExtResource( 17 )]
 visible = false
 
 [node name="10X20" type="Sprite" parent="."]
@@ -90,30 +96,7 @@ texture = ExtResource( 2 )
 script = ExtResource( 4 )
 ChildBlock = ExtResource( 5 )
 
-[node name="sfx" type="AudioStreamPlayer" parent="10X20"]
-
-[node name="drop" type="AudioStreamPlayer2D" parent="10X20/sfx"]
-stream = ExtResource( 10 )
-
-[node name="levelClear" type="AudioStreamPlayer2D" parent="10X20/sfx"]
-stream = ExtResource( 11 )
-
-[node name="lineClear" type="AudioStreamPlayer2D" parent="10X20/sfx"]
-stream = ExtResource( 12 )
-
-[node name="rotate" type="AudioStreamPlayer2D" parent="10X20/sfx"]
-stream = ExtResource( 13 )
-
-[node name="TypeA" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-volume_db = -20.0
-autoplay = true
-
-[node name="Tedbot" parent="." instance=ExtResource( 15 )]
-margin_left = 232.0
-margin_top = 416.0
-margin_right = 232.0
-margin_bottom = 416.0
-
 [node name="sceneChanger" parent="." instance=ExtResource( 16 )]
 visible = false
+
+[node name="Sound" parent="." instance=ExtResource( 9 )]

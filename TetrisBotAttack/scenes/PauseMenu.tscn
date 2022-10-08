@@ -31,9 +31,8 @@ margin_bottom = 168.5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 2.0
-margin_top = 4.0
 margin_right = 231.0
-margin_bottom = 332.0
+margin_bottom = 404.0
 custom_constants/separation = 10
 
 [node name="Paused" type="Label" parent="CenterContainer/VBoxContainer"]
@@ -55,6 +54,7 @@ margin_top = 110.0
 margin_right = 229.0
 margin_bottom = 176.0
 focus_neighbour_top = NodePath("../quit")
+focus_neighbour_bottom = NodePath("../restart")
 theme = ExtResource( 3 )
 text = "Resume"
 
@@ -62,18 +62,31 @@ text = "Resume"
 margin_top = 186.0
 margin_right = 229.0
 margin_bottom = 252.0
+focus_neighbour_top = NodePath("../resume")
+focus_neighbour_bottom = NodePath("../options")
 theme = ExtResource( 3 )
 text = " Restart "
 
-[node name="quit" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="options" type="Button" parent="CenterContainer/VBoxContainer"]
 margin_top = 262.0
 margin_right = 229.0
 margin_bottom = 328.0
+focus_neighbour_top = NodePath("../restart")
+focus_neighbour_bottom = NodePath("../quit")
+theme = ExtResource( 3 )
+text = "Options"
+
+[node name="quit" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 338.0
+margin_right = 229.0
+margin_bottom = 404.0
 rect_pivot_offset = Vector2( -1004, -270 )
+focus_neighbour_top = NodePath("../options")
 focus_neighbour_bottom = NodePath("../resume")
 theme = ExtResource( 3 )
 text = "Quit"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/resume" to="." method="OnResumeBtnPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/restart" to="." method="OnRestartBtnPressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/options" to="." method="OptionsBtnPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/quit" to="." method="OnQuitBtnPressed"]

@@ -5,23 +5,23 @@ public class PauseMenu : Control
 {
 	private bool isPaused;
 	private bool isFocused;
-	private Button resume;
-	private Button restart;
-	private Button quit;
+	private Button[] buttons;
 
 	public override void _Ready()
 	{
 		Visible = false;
 		isPaused = false;
-		resume = GetNode<Button>("CenterContainer/VBoxContainer/resume");
-		restart = GetNode<Button>("CenterContainer/VBoxContainer/restart");
-		quit = GetNode<Button>("CenterContainer/VBoxContainer/quit");
+		buttons = new Button[4];
+		buttons[0] = GetNode<Button>("CenterContainer/VBoxContainer/resume");
+		buttons[1] = GetNode<Button>("CenterContainer/VBoxContainer/restart");
+		buttons[2] = GetNode<Button>("CenterContainer/VBoxContainer/options");
+		buttons[3] = GetNode<Button>("CenterContainer/VBoxContainer/quit");
 	}
 
 	public override void _Process(float delta) {
-		pauseGame();
-		checkHover();
-		checkFocus();
+			pauseGame();
+			checkHover();
+			checkFocus();
 	}
 
 	private void pauseGame() {
@@ -29,10 +29,10 @@ public class PauseMenu : Control
 			isPaused = !isPaused;
 			GetTree().Paused = isPaused;
 			Visible = !Visible;
-			resume.FocusMode = (FocusModeEnum)2;
-			restart.FocusMode = (FocusModeEnum)2;
-			quit.FocusMode = (FocusModeEnum)2;
-			resume.GrabFocus();
+			for(int i = 0; i < buttons.Length; i++) {
+				buttons[i].FocusMode = (FocusModeEnum)2;
+			}
+			buttons[0].GrabFocus();
 			isFocused = true;
 		}
 	}
@@ -47,25 +47,31 @@ public class PauseMenu : Control
         GetNode<SceneChanger>("../../sceneChanger").ChangeScene("res://scenes/tet.tscn");
 	}
 
+	private void OptionsBtnPressed() {
+		GetNode<Options>("Options").openOptions();
+	}
+
 	private void OnQuitBtnPressed() {
 		GetTree().Quit();
 	}
 
 	private void checkHover() {
-		if(resume.IsHovered() == true || restart.IsHovered() == true || quit.IsHovered() == true) {
-			resume.FocusMode = 0;
-			restart.FocusMode = 0;
-			quit.FocusMode = 0;
-			isFocused = false;
+		for(int i = 0; i < buttons.Length; i++) {
+			if((buttons[i]).IsHovered() == true) {
+				for(int j = 0; j < buttons.Length; j++) {
+					buttons[i].FocusMode = 0;
+				}
+				isFocused = false;
+			}
 		}
 	}
 
 	private void checkFocus() {
 		if((Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down")) && isFocused == false) {
-			resume.FocusMode = (FocusModeEnum)2;
-			restart.FocusMode = (FocusModeEnum)2;
-			quit.FocusMode = (FocusModeEnum)2;
-			resume.GrabFocus();
+			for(int i = 0; i < buttons.Length; i++) {
+				buttons[i].FocusMode = (FocusModeEnum)2;
+			}
+			buttons[0].GrabFocus();
 			isFocused = true;
 		}
 	}
