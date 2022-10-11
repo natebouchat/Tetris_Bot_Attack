@@ -19,11 +19,17 @@ process_priority = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0823529, 0.12549, 0.121569, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Options" type="Label" parent="."]
 anchor_left = 0.5
@@ -36,28 +42,36 @@ custom_fonts/font = SubResource( 1 )
 text = "Options"
 
 [node name="GridContainer" type="GridContainer" parent="."]
-margin_left = 346.0
-margin_top = 185.0
-margin_right = 668.0
-margin_bottom = 271.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -237.0
+margin_top = -130.5
+margin_right = 237.0
+margin_bottom = 130.5
 rect_scale = Vector2( 1, 1.00301 )
 columns = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Music" type="Label" parent="GridContainer"]
-margin_right = 150.0
+margin_right = 270.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 2 )
 text = "Music"
 
 [node name="musicVolume" type="HSlider" parent="GridContainer"]
-margin_left = 154.0
-margin_right = 354.0
+margin_left = 274.0
+margin_right = 474.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 200, 16 )
 focus_neighbour_top = NodePath("../../Back")
 focus_neighbour_bottom = NodePath("../sfxVolume")
 size_flags_vertical = 1
+theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
@@ -65,24 +79,75 @@ ticks_on_borders = true
 
 [node name="SFX" type="Label" parent="GridContainer"]
 margin_top = 45.0
-margin_right = 150.0
+margin_right = 270.0
 margin_bottom = 86.0
 custom_fonts/font = SubResource( 2 )
 text = "SFX"
 
 [node name="sfxVolume" type="HSlider" parent="GridContainer"]
-margin_left = 154.0
+margin_left = 274.0
 margin_top = 45.0
-margin_right = 354.0
+margin_right = 474.0
 margin_bottom = 86.0
 rect_min_size = Vector2( 200, 16 )
 focus_neighbour_top = NodePath("../musicVolume")
-focus_neighbour_bottom = NodePath("../../Back")
+focus_neighbour_bottom = NodePath("../v_sync")
 size_flags_vertical = 1
+theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
 ticks_on_borders = true
+
+[node name="VSync" type="Label" parent="GridContainer"]
+margin_top = 90.0
+margin_right = 270.0
+margin_bottom = 131.0
+custom_fonts/font = SubResource( 2 )
+text = "V-Sync"
+
+[node name="v_sync" type="CheckBox" parent="GridContainer"]
+margin_left = 366.0
+margin_top = 102.0
+margin_right = 382.0
+margin_bottom = 118.0
+focus_neighbour_top = NodePath("../sfxVolume")
+focus_neighbour_bottom = NodePath("../fullscreen")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 4 )
+
+[node name="FullScreen" type="Label" parent="GridContainer"]
+margin_top = 135.0
+margin_right = 270.0
+margin_bottom = 176.0
+custom_fonts/font = SubResource( 2 )
+text = "Fullscreen"
+
+[node name="fullscreen" type="CheckBox" parent="GridContainer"]
+margin_left = 366.0
+margin_top = 147.0
+margin_right = 382.0
+margin_bottom = 163.0
+focus_neighbour_top = NodePath("../v_sync")
+focus_neighbour_bottom = NodePath("../../Controls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 4 )
+
+[node name="Controls" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -135.0
+margin_top = 82.0
+margin_right = 135.0
+margin_bottom = 10.0
+focus_neighbour_top = NodePath("../GridContainer/fullscreen")
+focus_neighbour_bottom = NodePath("../Back")
+theme = ExtResource( 4 )
+text = "Controls"
 
 [node name="Back" type="Button" parent="."]
 anchor_left = 0.5
@@ -92,7 +157,7 @@ anchor_bottom = 0.905
 margin_left = -75.0
 margin_top = -66.0
 margin_right = 75.0
-focus_neighbour_top = NodePath("../GridContainer/sfxVolume")
+focus_neighbour_top = NodePath("../Controls")
 focus_neighbour_bottom = NodePath("../GridContainer/musicVolume")
 theme = ExtResource( 4 )
 text = "Back"
@@ -101,5 +166,11 @@ text = "Back"
 [connection signal="value_changed" from="GridContainer/musicVolume" to="." method="MusicVolumeChanged"]
 [connection signal="mouse_entered" from="GridContainer/sfxVolume" to="." method="checkHover"]
 [connection signal="value_changed" from="GridContainer/sfxVolume" to="." method="SFXVolumeChanged"]
+[connection signal="mouse_entered" from="GridContainer/v_sync" to="." method="checkHover"]
+[connection signal="toggled" from="GridContainer/v_sync" to="." method="VSyncToggled"]
+[connection signal="mouse_entered" from="GridContainer/fullscreen" to="." method="checkHover"]
+[connection signal="toggled" from="GridContainer/fullscreen" to="." method="FullscreenToggled"]
+[connection signal="mouse_entered" from="Controls" to="." method="checkHover"]
+[connection signal="pressed" from="Controls" to="." method="ControlsBtnPressed"]
 [connection signal="mouse_entered" from="Back" to="." method="checkHover"]
 [connection signal="pressed" from="Back" to="." method="BackBtnPressed"]

@@ -10,10 +10,13 @@ public class Options : Control
     {
         Visible = false;
         isFocused = false;
-        buttons = new Control[3];
+        buttons = new Control[6];
         buttons[0] = GetNode<Slider>("GridContainer/musicVolume");
         buttons[1] = GetNode<Slider>("GridContainer/sfxVolume");
-        buttons[2] = GetNode<Button>("Back");
+        buttons[2] = GetNode<CheckBox>("GridContainer/v_sync");
+        buttons[3] = GetNode<CheckBox>("GridContainer/fullscreen");
+        buttons[4] = GetNode<Button>("Controls");
+        buttons[5] = GetNode<Button>("Back");
 
         ((Slider)buttons[0]).Value = GlobalSettings.musicVolume;
         ((Slider)buttons[1]).Value = GlobalSettings.sfxVolume;
@@ -55,6 +58,15 @@ public class Options : Control
         else {
             GlobalSettings.musicMuted = false;
         }
+    }
+
+    private void VSyncToggled(bool value) {
+    }
+
+    private void FullscreenToggled(bool value) {
+    }
+
+    private void ControlsBtnPressed() {
     }
 
     public void BackBtnPressed() {

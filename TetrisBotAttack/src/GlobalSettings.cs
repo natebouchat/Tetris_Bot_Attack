@@ -19,34 +19,31 @@ public class GlobalSettings : Node
 
     public static void saveGame() {
         
-        File file = new File();
-    	//Error error = file.Open(savePath, (File.ModeFlags)2);
-        Error error = file.OpenEncryptedWithPass("user://save.dat", (File.ModeFlags)2, "PlzW0rk");
-        if(error == Error.Ok) {
-            file.StoreFloat(musicVolume);
-            file.StoreFloat(sfxVolume);
+        ConfigFile file = new ConfigFile();
 
-            file.Close();
-        }
+        file.SetValue("Audio", "Music Volume", musicVolume);
+        file.SetValue("Audio", "SFX Volume", sfxVolume);
+
+        file.Save("user://save.cfg");
     }
 
     public static void loadGame() {
-       	File file = new File();
-	    if(file.FileExists("user://save.dat")) {
-            //Error error = file.Open(savePath, (File.ModeFlags)1);
-            Error error = file.OpenEncryptedWithPass("user://save.dat", (File.ModeFlags)1, "PlzW0rk");
-            if(error == Error.Ok) {
-                musicVolume = file.GetFloat();
-                sfxVolume = file.GetFloat();
-                
-                file.Close();
-                if(musicVolume == 0) {
-                    musicMuted = true;
-                }
-                if(sfxVolume == 0) {
-                    sfxMuted = true;
-                }
+       	ConfigFile file = new ConfigFile();
+
+        Error err = file.Load("user://save.cfg");
+        if(err == Error.Ok) {
+            musicVolume = (float)(file.GetValue("Audio", "Music Volume"));
+            sfxVolume = (float)(file.GetValue("Audio", "SFX Volume"));
+
+            if(musicVolume == 0) {
+                musicMuted = true;
+            }
+            if(sfxVolume == 0) {
+                sfxMuted = true;
             }
         }
+        else {
+            GD.Print("Load Failed");
+        }        
     }
 }
