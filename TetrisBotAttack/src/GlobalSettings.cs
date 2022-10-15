@@ -15,6 +15,7 @@ public class GlobalSettings : Node
         set{fullscreen = value;
             OS.WindowFullscreen = fullscreen;}
         }
+    static public ConfigFile file {get; set;}
 
     public override void _Ready()
     {
@@ -27,15 +28,14 @@ public class GlobalSettings : Node
         loadGame();
     }
 
-    public static void saveGame() {
-        
-        ConfigFile file = new ConfigFile();
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static void saveGame() {
         file.SetValue("Audio", "Music Volume", musicVolume);
         file.SetValue("Audio", "SFX Volume", sfxVolume);
         file.SetValue("Screen", "V-Sync", v_sync);
         file.SetValue("Screen", "Fullscreen", fullscreen);
-        SaveKeyBinds(file);
+        SaveKeyBinds();
 
         file.Save("user://save.cfg");
 
@@ -43,8 +43,61 @@ public class GlobalSettings : Node
       //Fullscreen enabled on button press instead of save
     }
 
+    private static void SaveKeyBinds() {
+        String[] allActions = convertToCSarray(InputMap.GetActions());
+        Array.Sort(allActions);
+        
+        for(int i = 0; i < allActions.Length; i++) {
+            String allInputs = "";
+            var actions = InputMap.GetActionList(allActions[i]);
+            foreach(var a in actions) {
+                InputEventKey key = a as InputEventKey;
+                InputEventJoypadButton aButton = a as InputEventJoypadButton;
+                InputEventJoypadMotion joystick = a as InputEventJoypadMotion;
+                if(key != null) {
+                    allInputs += "Key:" + key.Scancode + ", ";
+                }
+                else if(aButton != null) {
+                    allInputs += "JoypadButton:" + aButton.ButtonIndex + ", ";
+                }
+                else if(joystick != null) {
+                    allInputs += "JoypadMotion:" + joystick.Axis + ", ";
+                }
+            }
+            if(allInputs.Length != 0) {
+                file.SetValue("Controls", allActions[i], allInputs);
+            }
+        }
+    }
+
+    public static void resetKeyBindsDefault() {
+        file.SetValue("Controls", "hold", "JoypadButton:6, Key:87, ");
+        file.SetValue("Controls", "pause", "JoypadButton:11, Key:16777217, ");
+        file.SetValue("Controls", "rotateLeft", "JoypadButton:2, JoypadButton:4, JoypadButton:1, Key:83, ");
+        file.SetValue("Controls", "rotateRight", "JoypadButton:5, JoypadButton:0, JoypadButton:3, Key:65, ");
+        file.SetValue("Controls", "ui_accept", "Key:16777221, JoypadButton:0, ");
+        file.SetValue("Controls", "ui_cancel", "JoypadButton:1, ");
+        file.SetValue("Controls", "ui_down", "Key:16777234, JoypadButton:13, JoypadMotion:1, ");
+        file.SetValue("Controls", "ui_left", "Key:16777231, JoypadButton:14, JoypadMotion:0, ");
+        file.SetValue("Controls", "ui_right", "Key:16777233, JoypadButton:15, JoypadMotion:0, ");
+        file.SetValue("Controls", "ui_up", "Key:16777232, JoypadButton:12, JoypadMotion:1, ");
+
+        file.Save("user://save.cfg");
+        loadGame();
+    }
+
+    private static String[] convertToCSarray(Godot.Collections.Array GDarray) {
+        var tempArr = new String[GDarray.Count];
+        for(int i = 0; i < tempArr.Length; i++) {
+            tempArr[i] = (String)GDarray[i];
+        }
+        return tempArr;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static void loadGame() {
-       	ConfigFile file = new ConfigFile();
+       	file = new ConfigFile();
 
         Error err = file.Load("user://save.cfg");
         if(err == Error.Ok) {
@@ -60,44 +113,16 @@ public class GlobalSettings : Node
             v_sync = (bool)(file.GetValue("Screen", "V-Sync"));
             Fullscreen = (bool)(file.GetValue("Screen", "Fullscreen"));
 
-           // parseKeybinds(file);
+           parseKeybinds();
         }
         else {
-            GD.Print("Load Failed");
+            GD.Print("Load failed. Creating default save");
+            saveGame();
+            resetKeyBindsDefault();
         }        
     }
 
-    private static void SaveKeyBinds(ConfigFile file) {
-        String[] allActions = convertToCSarray(InputMap.GetActions());
-        Array.Sort(allActions);
-        
-        for(int i = 0; i < allActions.Length; i++) {
-            String allInputs = "";
-            var actions = InputMap.GetActionList(allActions[i]);
-            foreach(var a in actions) {
-                InputEventKey key = a as InputEventKey;
-                InputEventJoypadButton aButton = a as InputEventJoypadButton;
-                if(key != null) {
-                    allInputs += "Key:" + key.Scancode + ", ";
-                }
-                else if(aButton != null) {
-                    allInputs += "JoypadButton:" + aButton.ButtonIndex + ", ";
-                }
-            }
-            if(allInputs.Length != 0) {
-                file.SetValue("Controls", allActions[i], allInputs);
-            }
-        }
-    }
-
-    private static String[] convertToCSarray(Godot.Collections.Array GDarray) {
-        var tempArr = new String[GDarray.Count];
-        for(int i = 0; i < tempArr.Length; i++) {
-            tempArr[i] = (String)GDarray[i];
-        }
-        return tempArr;
-    }
-    private static void parseKeybinds(ConfigFile file) {
+    private static void parseKeybinds() {
         String[] allActions = file.GetSectionKeys("Controls");
 
         for(int i = 0; i < allActions.Length; i++) {
@@ -108,25 +133,21 @@ public class GlobalSettings : Node
 
                 if(inputAndKey[0].Equals("Key")) {
                     InputEventKey aKey = new InputEventKey();
-                    aKey.Scancode = (uint)(OS.FindScancodeFromString(allInputs[j]));
+                    aKey.Scancode = Convert.ToUInt32(inputAndKey[1]);
                     InputMap.ActionAddEvent(allActions[i], aKey);
                 }
                 else if(inputAndKey[0].Equals("JoypadButton")) {
                     InputEventJoypadButton newButton = new InputEventJoypadButton();
-                    newButton.ButtonIndex = Convert.ToInt32(inputAndKey[1].Remove(inputAndKey[1].Length - 1));
+                    newButton.ButtonIndex = Convert.ToInt32(inputAndKey[1]);
                     InputMap.ActionAddEvent(allActions[i], newButton);
                 }
                 else if(inputAndKey[0].Equals("JoypadMotion")) { 
                     InputEventJoypadMotion newJoyMotion = new InputEventJoypadMotion();
-                    newJoyMotion.Axis = Convert.ToInt32(inputAndKey[1].Remove(inputAndKey[1].Length - 1));
+                    newJoyMotion.Axis = Convert.ToInt32(inputAndKey[1]);
                     InputMap.ActionAddEvent(allActions[i], newJoyMotion);
                 }
             }
         }
-        GD.Print(InputMap.GetActionList(allActions[0]));
     }
-
-    //private static InputEventAction
-
 
 }
