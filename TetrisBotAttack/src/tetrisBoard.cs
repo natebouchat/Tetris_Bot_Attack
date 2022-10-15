@@ -180,7 +180,7 @@ public class tetrisBoard : Node2D
 	private void landBuffer() {
 		block.blockMoveDown();
 		if(hasCollided(block.getBlockPos()) == true) {
-			delay = 10;
+			delay = 20;
 		}
 		block.blockMoveUp();
 	}

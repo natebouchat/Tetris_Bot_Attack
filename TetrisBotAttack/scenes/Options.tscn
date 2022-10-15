@@ -19,17 +19,11 @@ process_priority = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0823529, 0.12549, 0.121569, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Options" type="Label" parent="."]
 anchor_left = 0.5
@@ -43,18 +37,15 @@ text = "Options"
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.438
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.438
 margin_left = -237.0
 margin_top = -130.5
 margin_right = 237.0
 margin_bottom = 130.5
 rect_scale = Vector2( 1, 1.00301 )
 columns = 2
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Music" type="Label" parent="GridContainer"]
 margin_right = 270.0

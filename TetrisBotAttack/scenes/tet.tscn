@@ -19,40 +19,39 @@ size = 30
 font_data = ExtResource( 6 )
 
 [node name="tet" type="Node2D"]
-position = Vector2( -1, 0 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
 [node name="Score" type="Label" parent="HUD"]
-margin_left = 707.0
-margin_top = 48.0
-margin_right = 835.0
-margin_bottom = 79.0
+margin_left = 738.25
+margin_top = 79.5
+margin_right = 866.25
+margin_bottom = 110.5
 custom_fonts/font = SubResource( 1 )
 text = "Score: "
 
 [node name="Lines" type="Label" parent="HUD"]
-margin_left = 720.0
-margin_top = 121.0
-margin_right = 827.0
-margin_bottom = 169.0
+margin_left = 751.25
+margin_top = 152.5
+margin_right = 858.25
+margin_bottom = 200.5
 custom_fonts/font = SubResource( 1 )
 text = "Lines:"
 
 [node name="Level" type="Label" parent="HUD"]
-margin_left = 709.0
-margin_top = 194.0
-margin_right = 837.0
-margin_bottom = 242.0
+margin_left = 740.25
+margin_top = 225.5
+margin_right = 868.25
+margin_bottom = 273.5
 custom_fonts/font = SubResource( 1 )
 text = "Level: "
 
 [node name="Tedbot" parent="HUD" instance=ExtResource( 15 )]
-margin_left = 231.0
-margin_top = 416.0
-margin_right = 231.0
-margin_bottom = 416.0
+margin_left = 262.25
+margin_top = 447.5
+margin_right = 262.25
+margin_bottom = 447.5
 
 [node name="GameOver" parent="HUD" instance=ExtResource( 14 )]
 visible = false
@@ -72,7 +71,7 @@ visible = false
 visible = false
 
 [node name="10X20" type="Sprite" parent="."]
-position = Vector2( 500, 300 )
+position = Vector2( 531.25, 331.5 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )

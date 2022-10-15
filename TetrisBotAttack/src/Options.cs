@@ -20,6 +20,9 @@ public class Options : Control
 
         ((Slider)buttons[0]).Value = GlobalSettings.musicVolume;
         ((Slider)buttons[1]).Value = GlobalSettings.sfxVolume;
+        ((CheckBox)buttons[2]).Pressed = GlobalSettings.v_sync;
+        ((CheckBox)buttons[3]).Pressed = GlobalSettings.Fullscreen;
+        
         for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].FocusMode = (FocusModeEnum)0;
 		}
@@ -61,9 +64,11 @@ public class Options : Control
     }
 
     private void VSyncToggled(bool value) {
+        GlobalSettings.v_sync = value;
     }
 
     private void FullscreenToggled(bool value) {
+        GlobalSettings.Fullscreen = value;
     }
 
     private void ControlsBtnPressed() {
