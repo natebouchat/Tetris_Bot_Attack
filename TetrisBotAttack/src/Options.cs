@@ -72,6 +72,7 @@ public class Options : Control
     }
 
     private void ControlsBtnPressed() {
+        GetNode<ControlConfig>("ControlConfig").openControlConfig();
     }
 
     public void BackBtnPressed() {

@@ -61,7 +61,13 @@ public class GlobalSettings : Node
                     allInputs += "JoypadButton:" + aButton.ButtonIndex + ", ";
                 }
                 else if(joystick != null) {
-                    allInputs += "JoypadMotion:" + joystick.Axis + ", ";
+                    allInputs += "JoypadMotion:" + joystick.Axis;
+                    if(allActions[i].Equals("ui_up") || allActions[i].Equals("ui_left")) {
+                        allInputs += "/-, ";
+                    }
+                    else{
+                        allInputs += "/+, ";
+                    }
                 }
             }
             if(allInputs.Length != 0) {
@@ -77,10 +83,10 @@ public class GlobalSettings : Node
         file.SetValue("Controls", "rotateRight", "JoypadButton:5, JoypadButton:0, JoypadButton:3, Key:65, ");
         file.SetValue("Controls", "ui_accept", "Key:16777221, JoypadButton:0, ");
         file.SetValue("Controls", "ui_cancel", "JoypadButton:1, ");
-        file.SetValue("Controls", "ui_down", "Key:16777234, JoypadButton:13, JoypadMotion:1, ");
-        file.SetValue("Controls", "ui_left", "Key:16777231, JoypadButton:14, JoypadMotion:0, ");
-        file.SetValue("Controls", "ui_right", "Key:16777233, JoypadButton:15, JoypadMotion:0, ");
-        file.SetValue("Controls", "ui_up", "Key:16777232, JoypadButton:12, JoypadMotion:1, ");
+        file.SetValue("Controls", "ui_down", "Key:16777234, JoypadButton:13, JoypadMotion:1/+, ");
+        file.SetValue("Controls", "ui_left", "Key:16777231, JoypadButton:14, JoypadMotion:0/-, ");
+        file.SetValue("Controls", "ui_right", "Key:16777233, JoypadButton:15, JoypadMotion:0/+, ");
+        file.SetValue("Controls", "ui_up", "Key:16777232, JoypadButton:12, JoypadMotion:1/-, ");
 
         file.Save("user://save.cfg");
         loadGame();
@@ -118,7 +124,6 @@ public class GlobalSettings : Node
         else {
             GD.Print("Load failed. Creating default save");
             saveGame();
-            resetKeyBindsDefault();
         }        
     }
 
@@ -142,8 +147,15 @@ public class GlobalSettings : Node
                     InputMap.ActionAddEvent(allActions[i], newButton);
                 }
                 else if(inputAndKey[0].Equals("JoypadMotion")) { 
+                    String[] axisAndDirection = inputAndKey[1].Split("/");
                     InputEventJoypadMotion newJoyMotion = new InputEventJoypadMotion();
-                    newJoyMotion.Axis = Convert.ToInt32(inputAndKey[1]);
+                    newJoyMotion.Axis = Convert.ToInt32(axisAndDirection[0]);
+                    if(axisAndDirection[1].Equals("-")) {
+                        newJoyMotion.AxisValue = -1.0f;
+                    }
+                    else {
+                        newJoyMotion.AxisValue = 1.0f;
+                    }
                     InputMap.ActionAddEvent(allActions[i], newJoyMotion);
                 }
             }
