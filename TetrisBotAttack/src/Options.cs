@@ -5,6 +5,8 @@ public class Options : Control
 {
     private Control[] buttons;
     private bool isFocused;
+    private bool controlConfigClosed;
+    private ControlConfig controlConfigMenu;
 
     public override void _Ready()
     {
@@ -17,6 +19,8 @@ public class Options : Control
         buttons[3] = GetNode<CheckBox>("GridContainer/fullscreen");
         buttons[4] = GetNode<Button>("Controls");
         buttons[5] = GetNode<Button>("Back");
+        controlConfigMenu = GetNode<ControlConfig>("ControlConfig");
+        controlConfigClosed = true;
 
         ((Slider)buttons[0]).Value = GlobalSettings.musicVolume;
         ((Slider)buttons[1]).Value = GlobalSettings.sfxVolume;
@@ -31,6 +35,7 @@ public class Options : Control
 
     public override void _Process(float delta) {
         checkFocus();
+        ControlConfigWasClosed();
     }
 
     public void openOptions() {
@@ -72,7 +77,11 @@ public class Options : Control
     }
 
     private void ControlsBtnPressed() {
-        GetNode<ControlConfig>("ControlConfig").openControlConfig();
+        controlConfigMenu.openControlConfig();
+        for(int j = 0; j < buttons.Length; j++) {
+            buttons[j].FocusMode = 0;
+        }
+        isFocused = false;
     }
 
     public void BackBtnPressed() {
@@ -83,6 +92,7 @@ public class Options : Control
 			buttons[i].FocusMode = (FocusModeEnum)0;
 		}
         isFocused = false;
+        controlConfigMenu.ControlBackBtnPressed();
         this.SetProcess(false);
     }
 
@@ -95,12 +105,27 @@ public class Options : Control
     }
 
     private void checkFocus() {
-		if((Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down")) && isFocused == false && Visible == true) {
-			for(int i = 0; i < buttons.Length; i++) {
-				buttons[i].FocusMode = (FocusModeEnum)2;
-			}
-			buttons[0].GrabFocus();
-			isFocused = true;
+		if((Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down")) && isFocused == false 
+        && Visible == true && controlConfigMenu.Visible == false) {
+			resetFocus();
+		}
+	}
+
+    private void resetFocus() {
+		for(int i = 0; i < buttons.Length; i++) {
+			buttons[i].FocusMode = (FocusModeEnum)2;
+		}
+		buttons[0].GrabFocus();
+		isFocused = true;
+	}
+
+    private void ControlConfigWasClosed() {
+		if(controlConfigMenu.Visible == true) {
+			controlConfigClosed = false;
+		}
+		else if(controlConfigClosed == false && controlConfigMenu.Visible == false) {
+			resetFocus();
+			controlConfigClosed = true;
 		}
 	}
 

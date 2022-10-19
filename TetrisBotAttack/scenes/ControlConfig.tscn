@@ -65,8 +65,8 @@ margin_right = 332.5
 margin_right = 275.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 275, 0 )
-focus_neighbour_top = NodePath("../Controls")
-focus_neighbour_bottom = NodePath("../GridContainer/musicVolume")
+focus_neighbour_left = NodePath("../ResetKeybinds")
+focus_neighbour_right = NodePath("../ResetKeybinds")
 theme = ExtResource( 3 )
 text = "Back"
 
@@ -74,8 +74,12 @@ text = "Back"
 margin_left = 279.0
 margin_right = 634.0
 margin_bottom = 66.0
+focus_neighbour_left = NodePath("../Back")
+focus_neighbour_right = NodePath("../Back")
 theme = ExtResource( 3 )
 text = "Reset Keybinds"
 
+[connection signal="mouse_entered" from="HBoxContainer/Back" to="." method="checkHover"]
 [connection signal="pressed" from="HBoxContainer/Back" to="." method="ControlBackBtnPressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ResetKeybinds" to="." method="checkHover"]
 [connection signal="pressed" from="HBoxContainer/ResetKeybinds" to="." method="ResetKeybindsBtn"]

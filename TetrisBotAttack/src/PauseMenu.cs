@@ -54,6 +54,9 @@ public class PauseMenu : Control
 
 	private void OptionsBtnPressed() {
 		options.openOptions();
+		for(int j = 0; j < buttons.Length; j++) {
+			buttons[j].FocusMode = 0;
+		}
 		isFocused = false;
 	}
 

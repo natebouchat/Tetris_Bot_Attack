@@ -14,10 +14,7 @@ public class ControlConfig : Control
         Visible = false;
         isFocused = false;
         configurationContainer = GetNode<VBoxContainer>("Panel/ScrollContainer/VBoxContainer");
-
-        buttons = new Control[2];
-        buttons[0] = GetNode<Button>("HBoxContainer/Back");
-        buttons[1] = GetNode<Button>("HBoxContainer/ResetKeybinds");
+        makeKeybindMenu();
         
         for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].FocusMode = (FocusModeEnum)0;
@@ -25,13 +22,18 @@ public class ControlConfig : Control
         this.SetProcess(false);
     }
 
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+	public override void _Process(float delta) {
+		if(this.Visible == true) {
+			checkFocus();
+		}
+	}
 
     public void openControlConfig() {
         this.SetProcess(true);
+        while(configurationContainer.GetChildCount() > 0) {
+            configurationContainer.GetChild(0).QueueFree();
+            configurationContainer.RemoveChild(configurationContainer.GetChild(0));
+        }
         makeKeybindMenu();
         Visible = true;
         for(int i = 0; i < buttons.Length; i++) {
@@ -39,11 +41,31 @@ public class ControlConfig : Control
 		}
         isFocused = true;
         buttons[0].GrabFocus();
-        if(Input.GetJoyName(0) != "") {
-        }
     }
 
-    private void makeKeybindMenu() {
+    public void ControlBackBtnPressed() {
+        GlobalSettings.saveGame();
+        Visible = false;
+        for(int i = 0; i < buttons.Length; i++) {
+			buttons[i].FocusMode = (FocusModeEnum)0;
+		}
+        isFocused = false;
+        this.SetProcess(false);
+    }
+
+    private void ResetKeybindsBtn() {
+        GlobalSettings.resetKeyBindsDefault();
+        while(configurationContainer.GetChildCount() > 0) {
+            configurationContainer.GetChild(0).QueueFree();
+            configurationContainer.RemoveChild(configurationContainer.GetChild(0));
+        }
+        makeKeybindMenu();
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void makeKeybindMenu() {
         String[] allActions = GlobalSettings.file.GetSectionKeys("Controls");
         
         for(int i = 0; i < allActions.Length; i++) {
@@ -94,32 +116,34 @@ public class ControlConfig : Control
                 }
             }
         }
+        SetKeybindButtonNeighbors();
     }
 
-
-
-
-    public void ControlBackBtnPressed() {
-        GlobalSettings.saveGame();
-        Visible = false;
-        for(int i = 0; i < buttons.Length; i++) {
-			buttons[i].FocusMode = (FocusModeEnum)0;
-		}
-        isFocused = false;
-        this.SetProcess(false);
-    }
-
-    private void ResetKeybindsBtn() {
-        GlobalSettings.resetKeyBindsDefault();
-        while(configurationContainer.GetChildCount() > 0) {
-            configurationContainer.RemoveChild(configurationContainer.GetChild(0));
+    private void SetKeybindButtonNeighbors() {
+        buttons = new Control[configurationContainer.GetChildCount() + 2];
+        buttons[0] = GetNode<Button>("HBoxContainer/Back");
+        buttons[1] = GetNode<Button>("HBoxContainer/ResetKeybinds");
+        
+        buttons[2] = configurationContainer.GetChild(0).GetChild<Button>(1);
+        for(int i = 3; i < buttons.Length-1; i++) {
+            buttons[i] = (configurationContainer.GetChild(i-2).GetChild<Button>(1));
+            buttons[i].FocusNeighbourTop = "../../" + buttons[i-1].GetParent().Name +"/"+ buttons[i-1].Name;
+            buttons[i-1].FocusNeighbourBottom = "../../" + buttons[i].GetParent().Name +"/"+ buttons[i].Name;
         }
-        makeKeybindMenu();
+        buttons[buttons.Length-1] = (configurationContainer.GetChild(buttons.Length-3).GetChild<Button>(1));
+        
+        buttons[0].FocusNeighbourTop =  "../../Panel/ScrollContainer/VBoxContainer/" + buttons[2].GetParent().Name +"/"+ buttons[2].Name;
+        buttons[0].FocusNeighbourBottom =  "../../Panel/ScrollContainer/VBoxContainer/" + buttons[2].GetParent().Name +"/"+ buttons[2].Name;
+        buttons[1].FocusNeighbourTop =  "../../Panel/ScrollContainer/VBoxContainer/" + buttons[2].GetParent().Name +"/"+ buttons[2].Name;
+        buttons[1].FocusNeighbourBottom =  "../../Panel/ScrollContainer/VBoxContainer/" + buttons[2].GetParent().Name +"/"+ buttons[2].Name;
+        buttons[2].FocusNeighbourTop = "../../../../../HBoxContainer/Back";
+        buttons[2].FocusNeighbourBottom = "../../" + buttons[3].GetParent().Name +"/"+ buttons[3].Name;
+        buttons[buttons.Length-1].FocusNeighbourTop = "../../" + buttons[buttons.Length-2].GetParent().Name +"/"+ buttons[buttons.Length-2].Name;
+        buttons[buttons.Length-1].FocusNeighbourBottom =  "../../../../../HBoxContainer/Back"; 
     }
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     private void checkHover() {
         //Mouse_Enter Signal
         for(int j = 0; j < buttons.Length; j++) {
