@@ -15,7 +15,7 @@ public class ControlConfig : Control
         Visible = false;
         isFocused = false;
         configurationContainer = GetNode<VBoxContainer>("Panel/ScrollContainer/VBoxContainer");
-        ButtonTheme = ResourceLoader.Load<Theme>("res://scenes/ButtonTheme.tres");
+        ButtonTheme = ResourceLoader.Load<Theme>("res://scenes/ControlConfigTheme.tres");
 
         buttons = new Control[2];
         buttons[0] = GetNode<Button>("HBoxContainer/Back");
@@ -34,7 +34,7 @@ public class ControlConfig : Control
 
     public void openControlConfig() {
         this.SetProcess(true);
-        makeKeybindMenu();
+        ResetKeybindsBtn();
         Visible = true;
         for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].FocusMode = (FocusModeEnum)2;
@@ -62,7 +62,10 @@ public class ControlConfig : Control
                     label.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
                     button.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
                     
-                    label.Text = allActions[i];                    
+                    label.Text = allActions[i];
+
+                    label.Theme = ButtonTheme;
+                    button.Theme = ButtonTheme;                    
 
                     //C# needs to rebind instance when setting scripts
                     ulong objID = button.GetInstanceId();
@@ -86,7 +89,6 @@ public class ControlConfig : Control
                     }
                     ((ControlConfigButtons)button).menu = this;
 
-                    button.Theme = ButtonTheme;
                     button.ToggleMode = true;
                     button.FocusMode = (FocusModeEnum)2;
                     

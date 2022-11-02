@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/GunmetalRegular-eeAx.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Options.cs" type="Script" id=2]
 [ext_resource path="res://assets/MassiveBassline-7elR.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/ButtonTheme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/ControlConfig.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/CheckBoxCheckedMaybe.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -13,6 +14,11 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 40
 font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxTexture" id=25]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 50, 50 )
+modulate_color = Color( 0, 0.929412, 1, 1 )
 
 [node name="Options" type="Control"]
 pause_mode = 2
@@ -68,7 +74,6 @@ theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
-ticks_on_borders = true
 
 [node name="SFX" type="Label" parent="GridContainer"]
 margin_top = 56.0
@@ -90,7 +95,6 @@ theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
-ticks_on_borders = true
 
 [node name="VSync" type="Label" parent="GridContainer"]
 margin_top = 116.0
@@ -109,6 +113,7 @@ focus_neighbour_bottom = NodePath("../fullscreen")
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource( 4 )
+custom_styles/hover_pressed = SubResource( 25 )
 
 [node name="FullScreen" type="Label" parent="GridContainer"]
 margin_top = 181.0
@@ -127,6 +132,7 @@ focus_neighbour_bottom = NodePath("../../Controls")
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource( 4 )
+custom_styles/hover_pressed = SubResource( 25 )
 
 [node name="Controls" type="Button" parent="."]
 anchor_left = 0.5
