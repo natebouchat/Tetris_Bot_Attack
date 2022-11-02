@@ -108,6 +108,7 @@ public class ControlConfig : Control
 
                     button.ToggleMode = true;
                     button.FocusMode = (FocusModeEnum)2;
+                    button.Theme = (Theme)(ResourceLoader.Load("res://scenes/ButtonTheme.tres"));
                     
                     hbox.AddChild(label);
                     hbox.AddChild(button);
