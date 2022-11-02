@@ -7,6 +7,7 @@ public class ControlConfig : Control
     private Control[] buttons;
     private Script buttonScript;
     private VBoxContainer configurationContainer;
+    private Theme ButtonTheme;
     private bool isFocused;
 
     public override void _Ready()
@@ -14,6 +15,7 @@ public class ControlConfig : Control
         Visible = false;
         isFocused = false;
         configurationContainer = GetNode<VBoxContainer>("Panel/ScrollContainer/VBoxContainer");
+        ButtonTheme = ResourceLoader.Load<Theme>("res://scenes/ButtonTheme.tres");
 
         buttons = new Control[2];
         buttons[0] = GetNode<Button>("HBoxContainer/Back");
@@ -84,6 +86,7 @@ public class ControlConfig : Control
                     }
                     ((ControlConfigButtons)button).menu = this;
 
+                    button.Theme = ButtonTheme;
                     button.ToggleMode = true;
                     button.FocusMode = (FocusModeEnum)2;
                     

@@ -54,12 +54,13 @@ size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.958
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.958
 margin_left = -332.5
 margin_top = -66.0
 margin_right = 332.5
+custom_constants/separation = 60
 
 [node name="Back" type="Button" parent="HBoxContainer"]
 margin_right = 275.0
@@ -71,9 +72,10 @@ theme = ExtResource( 3 )
 text = "Back"
 
 [node name="ResetKeybinds" type="Button" parent="HBoxContainer"]
-margin_left = 279.0
-margin_right = 634.0
+margin_left = 335.0
+margin_right = 735.0
 margin_bottom = 66.0
+rect_min_size = Vector2( 400, 0 )
 theme = ExtResource( 3 )
 text = "Reset Keybinds"
 

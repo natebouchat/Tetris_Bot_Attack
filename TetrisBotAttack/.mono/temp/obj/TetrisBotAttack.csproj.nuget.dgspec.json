@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj": {}
+    "C:\\Users\\burnt\\OneDrive\\Documents\\GitHub\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj": {
+    "C:\\Users\\burnt\\OneDrive\\Documents\\GitHub\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj",
+        "projectUniqueName": "C:\\Users\\burnt\\OneDrive\\Documents\\GitHub\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj",
         "projectName": "TetrisBotAttack",
-        "projectPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\TetrisBotAttack.csproj",
+        "projectPath": "C:\\Users\\burnt\\OneDrive\\Documents\\GitHub\\Tetris_Bot_Attack\\TetrisBotAttack\\TetrisBotAttack.csproj",
         "packagesPath": "C:\\Users\\burnt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\burnt\\Documents\\Godot_Projects\\TetrisBotAttackGit\\TetrisBotAttack\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\burnt\\OneDrive\\Documents\\GitHub\\Tetris_Bot_Attack\\TetrisBotAttack\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\burnt\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -45,7 +45,7 @@
               "autoReferenced": true
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
