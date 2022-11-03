@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/GunmetalRegular-eeAx.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/ControlConfig.cs" type="Script" id=2]
 [ext_resource path="res://scenes/ButtonTheme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/controller.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -26,6 +27,14 @@ script = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0823529, 0.12549, 0.121569, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ControllerHelper" type="Sprite" parent="."]
+position = Vector2( 784, 87 )
+scale = Vector2( 1.215, 1.16667 )
+texture = ExtResource( 4 )
 
 [node name="controls" type="Label" parent="."]
 pause_mode = 2
@@ -59,7 +68,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -375.0
 margin_top = -190.0
-margin_right = 375.0
+margin_right = 400.0
 margin_bottom = 190.0
 rect_min_size = Vector2( 750, 380 )
 size_flags_horizontal = 3
@@ -95,9 +104,9 @@ text = "Back"
 margin_left = 335.0
 margin_right = 755.0
 margin_bottom = 66.0
+rect_min_size = Vector2( 420, 0 )
 focus_neighbour_left = NodePath("../Back")
 focus_neighbour_right = NodePath("../Back")
-rect_min_size = Vector2( 420, 0 )
 theme = ExtResource( 3 )
 text = "Reset Keybinds"
 

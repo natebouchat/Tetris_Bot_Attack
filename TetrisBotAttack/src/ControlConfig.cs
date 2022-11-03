@@ -14,6 +14,7 @@ public class ControlConfig : Control
     {
         Visible = false;
         isFocused = false;
+        GetNode<Sprite>("ControllerHelper").Visible = false;
         configurationContainer = GetNode<VBoxContainer>("Panel/ScrollContainer/VBoxContainer");
         ButtonTheme = ResourceLoader.Load<Theme>("res://scenes/ControlConfigTheme.tres");
 
@@ -89,6 +90,12 @@ public class ControlConfig : Control
                     button.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
                     
                     label.Text = allActions[i];
+                    if((label.Text).Length >= 3 &&  ((label.Text).Substring(0, 3)).Equals("ui_")) {
+                        label.Text = (label.Text).Substring(3);
+                    }
+                    else if((label.Text).Length >= 6 &&  (label.Text).Substring(0, 6).Equals("rotate")) {
+                        label.Text = (label.Text).Substring(0, 6) + " " + (label.Text).Substring(6);
+                    }
 
                     label.Theme = ButtonTheme;
                     button.Theme = ButtonTheme;                    
@@ -109,6 +116,7 @@ public class ControlConfig : Control
                         if(Input.GetJoyName(0) == "") {
                             continue;
                         }
+                        GetNode<Sprite>("ControllerHelper").Visible = true;
                         button.Text = setControllerBindButtonImage(aButton.ButtonIndex);
                         ((ControlConfigButtons)button).joyButton = aButton;
                         ((ControlConfigButtons)button).joyButtonCode = aButton.ButtonIndex;
@@ -117,7 +125,6 @@ public class ControlConfig : Control
 
                     button.ToggleMode = true;
                     button.FocusMode = (FocusModeEnum)2;
-                    button.Theme = (Theme)(ResourceLoader.Load("res://scenes/ButtonTheme.tres"));
                     
                     hbox.AddChild(label);
                     hbox.AddChild(button);
