@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/GunmetalRegular-eeAx.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Options.cs" type="Script" id=2]
 [ext_resource path="res://assets/MassiveBassline-7elR.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/ButtonTheme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/ControlConfig.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/CheckBoxCheckedMaybe.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -13,6 +14,11 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 40
 font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxTexture" id=25]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 50, 50 )
+modulate_color = Color( 0, 0.929412, 1, 1 )
 
 [node name="Options" type="Control"]
 pause_mode = 2
@@ -42,10 +48,11 @@ anchor_top = 0.438
 anchor_right = 0.5
 anchor_bottom = 0.438
 margin_left = -237.0
-margin_top = -130.5
+margin_top = -164.0
 margin_right = 237.0
-margin_bottom = 130.5
+margin_bottom = 88.0
 rect_scale = Vector2( 1, 1.00301 )
+custom_constants/vseparation = 15
 columns = 2
 
 [node name="Music" type="Label" parent="GridContainer"]
@@ -67,20 +74,19 @@ theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
-ticks_on_borders = true
 
 [node name="SFX" type="Label" parent="GridContainer"]
-margin_top = 45.0
+margin_top = 56.0
 margin_right = 270.0
-margin_bottom = 86.0
+margin_bottom = 97.0
 custom_fonts/font = SubResource( 2 )
 text = "SFX"
 
 [node name="sfxVolume" type="HSlider" parent="GridContainer"]
 margin_left = 274.0
-margin_top = 45.0
+margin_top = 56.0
 margin_right = 474.0
-margin_bottom = 86.0
+margin_bottom = 97.0
 rect_min_size = Vector2( 200, 16 )
 focus_neighbour_top = NodePath("../musicVolume")
 focus_neighbour_bottom = NodePath("../v_sync")
@@ -89,43 +95,44 @@ theme = ExtResource( 4 )
 max_value = 50.0
 value = 25.0
 tick_count = 3
-ticks_on_borders = true
 
 [node name="VSync" type="Label" parent="GridContainer"]
-margin_top = 90.0
+margin_top = 116.0
 margin_right = 270.0
-margin_bottom = 131.0
+margin_bottom = 157.0
 custom_fonts/font = SubResource( 2 )
 text = "V-Sync"
 
 [node name="v_sync" type="CheckBox" parent="GridContainer"]
-margin_left = 366.0
-margin_top = 102.0
-margin_right = 382.0
-margin_bottom = 118.0
+margin_left = 349.0
+margin_top = 112.0
+margin_right = 399.0
+margin_bottom = 162.0
 focus_neighbour_top = NodePath("../sfxVolume")
 focus_neighbour_bottom = NodePath("../fullscreen")
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource( 4 )
+custom_styles/hover_pressed = SubResource( 25 )
 
 [node name="FullScreen" type="Label" parent="GridContainer"]
-margin_top = 135.0
+margin_top = 181.0
 margin_right = 270.0
-margin_bottom = 176.0
+margin_bottom = 222.0
 custom_fonts/font = SubResource( 2 )
 text = "Fullscreen"
 
 [node name="fullscreen" type="CheckBox" parent="GridContainer"]
-margin_left = 366.0
-margin_top = 147.0
-margin_right = 382.0
-margin_bottom = 163.0
+margin_left = 349.0
+margin_top = 177.0
+margin_right = 399.0
+margin_bottom = 227.0
 focus_neighbour_top = NodePath("../v_sync")
 focus_neighbour_bottom = NodePath("../../Controls")
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource( 4 )
+custom_styles/hover_pressed = SubResource( 25 )
 
 [node name="Controls" type="Button" parent="."]
 anchor_left = 0.5

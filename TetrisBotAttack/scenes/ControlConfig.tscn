@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/GunmetalRegular-eeAx.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/ControlConfig.cs" type="Script" id=2]
@@ -7,6 +7,15 @@
 [sub_resource type="DynamicFont" id=1]
 size = 60
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0470588, 0.14902, 0.0784314, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0.0588235, 0.458824, 0.152941, 1 )
+border_blend = true
 
 [node name="ControlConfig" type="Control"]
 anchor_right = 1.0
@@ -38,29 +47,40 @@ margin_left = -400.0
 margin_top = -200.0
 margin_right = 400.0
 margin_bottom = 200.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 800, 400 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -375.0
+margin_top = -190.0
+margin_right = 375.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 750, 380 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
-margin_right = 800.0
-margin_bottom = 400.0
+margin_right = 750.0
+margin_bottom = 380.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.958
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.958
 margin_left = -332.5
 margin_top = -66.0
 margin_right = 332.5
+custom_constants/separation = 60
 
 [node name="Back" type="Button" parent="HBoxContainer"]
 margin_right = 275.0
@@ -72,11 +92,12 @@ theme = ExtResource( 3 )
 text = "Back"
 
 [node name="ResetKeybinds" type="Button" parent="HBoxContainer"]
-margin_left = 279.0
-margin_right = 634.0
+margin_left = 335.0
+margin_right = 755.0
 margin_bottom = 66.0
 focus_neighbour_left = NodePath("../Back")
 focus_neighbour_right = NodePath("../Back")
+rect_min_size = Vector2( 420, 0 )
 theme = ExtResource( 3 )
 text = "Reset Keybinds"
 

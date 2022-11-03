@@ -133,6 +133,10 @@ pause={
  ]
 }
 
+[mono]
+
+project/assembly_name="TetrisBotAttack"
+
 [physics]
 
 common/enable_pause_aware_picking=true

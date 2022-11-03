@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://assets/MassiveBassline-7elR.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/ConfigButton.png" type="Texture" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_top = 10
+extra_spacing_bottom = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 300, 100 )
+
+[resource]
+Button/fonts/font = SubResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Label/fonts/font = SubResource( 1 )
