@@ -28,6 +28,7 @@ public class tetrisBoard : Node2D
 
 	public override void _Ready()
 	{
+		Engine.TargetFps = 60;
 		GetTree().Paused = false;
 		_screenSize = GetViewport().Size;
 		HUD = GetNode<TetHud>("../HUD");
@@ -64,7 +65,7 @@ public class tetrisBoard : Node2D
 		if(board[4, 1] == null) {
 			playerInput();
 
-			timer -= 1 * (delta * 60);
+			timer -= 1;
 			if (timer <= 0) {
 				timer = tickTime + delay;
 				delay = 0;
@@ -266,7 +267,7 @@ public class tetrisBoard : Node2D
 						tickTime = (tickTime*3)/4;
 						lines -= 10;
 						sound.playSFX("levelClear");
-						GetNode<tedbot>("../HUD/Tedbot").startingAnimations();
+						GetNode<tedbot>("../HUD/Tedbot").slowExplode();
 					}
 				}
 			}

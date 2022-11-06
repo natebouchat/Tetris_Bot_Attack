@@ -5,6 +5,7 @@ public class tedbot : Control
 {
     private AnimationPlayer anim;
     private AnimatedSprite TedbotSP;
+    private AnimatedSprite animFX;
     private Sprite hat;
     private Directory hatFolder;
     private String hatName;
@@ -14,6 +15,8 @@ public class tedbot : Control
     {
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         TedbotSP = GetNode<AnimatedSprite>("AnimatedSprite");
+        animFX = GetNode<AnimatedSprite>("AnimatedSprite/FX");
+        animFX.Visible = false;
         hatFolder = new Directory();
         //initializeAllhats();
         //printHats();
@@ -28,6 +31,12 @@ public class tedbot : Control
         TedbotSP.Animation = "Idle";
         //anim.Play("TedHatIdle");
 
+    }
+
+    public async void slowExplode() {
+        anim.Play("TedSlowExplode");
+        await ToSignal(anim, "animation_finished");
+        startingAnimations();
     }
 
     private void initializeAllhats() { 

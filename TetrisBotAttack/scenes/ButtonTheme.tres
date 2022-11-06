@@ -41,7 +41,7 @@ load_path = "res://.import/CheckBox CheckedMaybe.png-5cc71b8ac1d2cd85cc2b534be26
 [sub_resource type="StyleBoxTexture" id=25]
 texture = SubResource( 26 )
 region_rect = Rect2( 0, 0, 50, 50 )
-modulate_color = Color( 0, 0.929412, 1, 1 )
+modulate_color = Color( 0, 0.741176, 1, 1 )
 
 [sub_resource type="StyleBoxTexture" id=23]
 texture = ExtResource( 3 )

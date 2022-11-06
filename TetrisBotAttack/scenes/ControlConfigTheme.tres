@@ -10,13 +10,12 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxTexture" id=3]
 texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 314.847, 100 )
-margin_right = 27.2075
+region_rect = Rect2( 0, 0, 315, 100 )
 modulate_color = Color( 0, 0.741176, 1, 1 )
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
-margin_right = 27.2075
+region_rect = Rect2( 0, 0, 320, 100 )
 
 [resource]
 Button/fonts/font = SubResource( 1 )

@@ -181,16 +181,16 @@ public class ControlConfig : Control
 
     public String setControllerBindButtonImage(int buttonCode) {
         if(buttonCode == 0) {
-            return "xbox A";
+            return "A";
         }
         else if(buttonCode == 1) {
-            return "xbox B";
+            return "B";
         }
         else if(buttonCode == 2) {
-            return "xbox X";
+            return "X";
         }
         else if(buttonCode == 3) {
-            return "xbox Y";
+            return "Y";
         }
         else if(buttonCode == 4) {
             return "L1";
@@ -211,10 +211,10 @@ public class ControlConfig : Control
             return "R3 (Stick)";
         }
         else if(buttonCode == 10) {
-            return "Gamepad Select";
+            return "Select";
         }
         else if(buttonCode == 11) {
-            return "Gamepad Start";        
+            return "Start";        
         }
         else if(buttonCode == 12) {
             return "D-Pad Up";
