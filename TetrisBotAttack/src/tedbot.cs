@@ -39,6 +39,12 @@ public class tedbot : Control
         startingAnimations();
     }
 
+    public async void sparkDamage() {
+        TedbotSP.Animation = "Spark";
+        await ToSignal(TedbotSP, "animation_finished");
+        TedbotSP.Animation = "Idle";
+    }
+
     private void initializeAllhats() { 
         if(hatFolder.Open("res://assets/hats") == Error.Ok) {
             hatFolder.ListDirBegin();

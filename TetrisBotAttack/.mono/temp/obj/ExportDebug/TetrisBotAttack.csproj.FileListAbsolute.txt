@@ -16,3 +16,12 @@ C:\Users\burnt\Documents\Godot_Projects\TetrisBotAttackGit\TetrisBotAttack\.mono
 C:\Users\burnt\Documents\Godot_Projects\TetrisBotAttackGit\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.csproj.CoreCompileInputs.cache
 C:\Users\burnt\Documents\Godot_Projects\TetrisBotAttackGit\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.dll
 C:\Users\burnt\Documents\Godot_Projects\TetrisBotAttackGit\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.pdb
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\bin\ExportDebug\TetrisBotAttack.dll
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\bin\ExportDebug\TetrisBotAttack.pdb
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.csproj.AssemblyReference.cache
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.AssemblyInfoInputs.cache
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.AssemblyInfo.cs
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.csproj.CoreCompileInputs.cache
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.dll
+C:\Users\burnt\OneDrive\Documents\GitHub\Tetris_Bot_Attack\TetrisBotAttack\.mono\temp\obj\ExportDebug\TetrisBotAttack.pdb

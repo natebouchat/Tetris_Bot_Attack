@@ -262,6 +262,7 @@ public class tetrisBoard : Node2D
 					HUD.addOneToLines();
 					lines++;
 					sound.playSFX("lineClear");
+					GetNode<tedbot>("../HUD/Tedbot").sparkDamage();
 					if(lines >= 10) {
 						HUD.addOneToLevel();
 						tickTime = (tickTime*3)/4;
