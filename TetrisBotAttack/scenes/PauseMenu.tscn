@@ -4,7 +4,6 @@
 [ext_resource path="res://src/PauseMenu.cs" type="Script" id=2]
 [ext_resource path="res://scenes/ButtonTheme.tres" type="Theme" id=3]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 85
 font_data = ExtResource( 1 )
@@ -85,6 +84,7 @@ rect_pivot_offset = Vector2( -1004, -270 )
 focus_neighbour_top = NodePath("../options")
 focus_neighbour_bottom = NodePath("../resume")
 theme = ExtResource( 3 )
+disabled = true
 text = "Quit"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/resume" to="." method="OnResumeBtnPressed"]

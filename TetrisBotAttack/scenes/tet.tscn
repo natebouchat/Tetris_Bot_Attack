@@ -14,7 +14,7 @@
 [ext_resource path="res://scenes/SceneChanger.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Options.tscn" type="PackedScene" id=17]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 30
 font_data = ExtResource( 6 )
 
@@ -28,7 +28,7 @@ margin_left = 738.25
 margin_top = 79.5
 margin_right = 866.25
 margin_bottom = 110.5
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Score: "
 
 [node name="Lines" type="Label" parent="HUD"]
@@ -36,7 +36,7 @@ margin_left = 751.25
 margin_top = 152.5
 margin_right = 858.25
 margin_bottom = 200.5
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Lines:"
 
 [node name="Level" type="Label" parent="HUD"]
@@ -44,7 +44,7 @@ margin_left = 740.25
 margin_top = 225.5
 margin_right = 868.25
 margin_bottom = 273.5
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Level: "
 
 [node name="Tedbot" parent="HUD" instance=ExtResource( 15 )]

@@ -30,6 +30,10 @@ public class TetHud : CanvasLayer
 		score += number;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
 	public void addOneToLines() {
 		lines++;
 	}

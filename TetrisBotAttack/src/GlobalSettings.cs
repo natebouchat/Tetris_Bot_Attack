@@ -8,6 +8,7 @@ public class GlobalSettings : Node
     static public float musicVolume {get; set;}
     static public float sfxVolume {get; set;}
     static public bool v_sync {get; set;}
+    static public int currHighScore {get; set;}
 
     static private bool fullscreen;
     static public bool Fullscreen {
@@ -24,12 +25,18 @@ public class GlobalSettings : Node
         musicVolume = 25;
         sfxVolume = 25;
         v_sync = true;
+        currHighScore = 0;
         fullscreen = false;
         loadGame();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static void saveScore(int score) {
+        file.SetValue("HighScore", "Score", score);
+        saveGame();
+    }
+    
     public static void saveGame() {
         file.SetValue("Audio", "Music Volume", musicVolume);
         file.SetValue("Audio", "SFX Volume", sfxVolume);
@@ -119,7 +126,9 @@ public class GlobalSettings : Node
             v_sync = (bool)(file.GetValue("Screen", "V-Sync"));
             Fullscreen = (bool)(file.GetValue("Screen", "Fullscreen"));
 
-           parseKeybinds();
+            parseKeybinds();
+
+            currHighScore = (int)file.GetValue("HighScore", "Score");
         }
         else {
             GD.Print("Load failed. Creating default save");

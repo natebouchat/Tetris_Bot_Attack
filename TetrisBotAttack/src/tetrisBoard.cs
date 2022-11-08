@@ -82,7 +82,7 @@ public class tetrisBoard : Node2D
 			HUD.redraw();
 		}
 		else {
-			GetNode<GameOver>("../HUD/GameOver").GameOverScreen();
+			GetNode<GameOver>("../HUD/GameOver").GameOverScreen(HUD.getScore());
 			GetTree().Paused = true;
 		}
 

@@ -23,8 +23,18 @@ public class GameOver : Control
 		checkFocus();
 	}
 
-	public void GameOverScreen() {
+	public void GameOverScreen(int score) {
 		this.SetProcess(true);
+		if(score > GlobalSettings.currHighScore) {
+			GetNode<Label>("CenterContainer/VBoxContainer/High Score").Text = "New High Score!: " + score;
+			GetNode<Label>("CenterContainer/VBoxContainer/Score").Visible = false;
+			GlobalSettings.saveScore(score);
+		}
+		else {
+			GetNode<Label>("CenterContainer/VBoxContainer/High Score").Text = "High Score: " + GlobalSettings.currHighScore;
+			GetNode<Label>("CenterContainer/VBoxContainer/Score").Text = "     Score: " + score;
+		}
+
 		Visible = !Visible;
 		restart.FocusMode = (FocusModeEnum)2;
 		quit.FocusMode = (FocusModeEnum)2;
