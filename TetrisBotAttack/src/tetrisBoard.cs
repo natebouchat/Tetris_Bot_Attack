@@ -33,6 +33,7 @@ public class tetrisBoard : Node2D
 		_screenSize = GetViewport().Size;
 		HUD = GetNode<TetHud>("../HUD");
 		sound = GetNode<SoundManager>("../Sound");
+		sound.playMusic();
 
 		board = new Sprite[10, 20];
 		for(int i = 0; i < 20; i++) {

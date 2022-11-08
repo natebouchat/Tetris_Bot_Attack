@@ -84,7 +84,6 @@ rect_pivot_offset = Vector2( -1004, -270 )
 focus_neighbour_top = NodePath("../options")
 focus_neighbour_bottom = NodePath("../resume")
 theme = ExtResource( 3 )
-disabled = true
 text = "Quit"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/resume" to="." method="OnResumeBtnPressed"]

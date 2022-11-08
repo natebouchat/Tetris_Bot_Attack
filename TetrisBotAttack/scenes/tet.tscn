@@ -20,6 +20,8 @@ font_data = ExtResource( 6 )
 
 [node name="tet" type="Node2D"]
 
+[node name="Sound" parent="." instance=ExtResource( 9 )]
+
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
@@ -97,5 +99,3 @@ ChildBlock = ExtResource( 5 )
 
 [node name="sceneChanger" parent="." instance=ExtResource( 16 )]
 visible = false
-
-[node name="Sound" parent="." instance=ExtResource( 9 )]
